@@ -1,0 +1,14 @@
+{
+  "name": "ms-users",
+  "version": "1.0.0",
+  "description": "User Management Microservice",
+  "author": "Dijango Alves Rodolfo",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless-esbuild": "^1.43.0",
+    "serverless-offline": "^12.0.4"
+  },
+  "dependencies": {
+    "esbuild": "^0.17.14"
+  }
+}

@@ -1,0 +1,21 @@
+service: ms-users
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  hello:
+    handler: handler.hello
+
+  currentTime:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /time
+          method: get
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
