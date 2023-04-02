@@ -1,21 +1,20 @@
-service: ms-users
+service: ms-${self:custom.serviceName}
 frameworkVersion: '3'
+useDotenv: true
 
 provider:
   name: aws
   runtime: nodejs18.x
 
+custom:
+  serviceName: users
+  contextPath: /v1/${self:custom.serviceName}
+  baseApi: ${self:custom.contextPath}
+  funcDir: src/framework/functions
 functions:
-  hello:
-    handler: handler.hello
-
-  currentTime:
-    handler: handler.hello
-    events:
-      - httpApi:
-          path: /time
-          method: get
+  - ${file(${self:custom.funcDir}/users.yml)}
 
 plugins:
   - serverless-esbuild
   - serverless-offline
+  - serverless-dotenv-plugin
