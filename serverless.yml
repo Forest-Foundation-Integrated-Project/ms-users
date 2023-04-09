@@ -10,9 +10,17 @@ custom:
   serviceName: users
   contextPath: /v1/${self:custom.serviceName}
   baseApi: ${self:custom.contextPath}
-  funcDir: src/framework/functions
+  funcDir: src/4-framework/functions
 functions:
-  - ${file(${self:custom.funcDir}/users.yml)}
+  createUser:
+    handler: ${self:custom.funcDir}/createUser.handler
+    events:
+      - http:
+          path: ${self:custom.baseApi}/user
+          method: post
+          cors:
+            origin: '*'
+            headers: '*'
 
 plugins:
   - serverless-esbuild

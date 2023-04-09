@@ -1,4 +1,4 @@
-import { IUserEntity } from "../../domain/entities/userEntity"
+import { IUserEntity } from "../../1-domain/entities/userEntity"
 
 export const IUserRepositoryToken = Symbol.for('IUserRepository')
 

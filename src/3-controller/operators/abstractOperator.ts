@@ -1,7 +1,7 @@
 import { ValidationError } from 'class-validator'
 import { injectable } from 'inversify'
 
-import { validationError } from '../../business/module/errors/validation'
+import { validationError } from '../../2-business/module/errors/validation'
 import { Validatable } from '../serializers/abstractValidatable'
 
 @injectable()

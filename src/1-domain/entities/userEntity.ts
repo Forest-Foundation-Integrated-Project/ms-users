@@ -1,8 +1,8 @@
 // import { v4 as uuid } from 'uuid'
 import { randomUUID } from 'crypto'
 
-import { Either, right } from '../../framework/shared/either'
-import { IError } from '../../framework/shared/iError'
+import { Either, right } from '../../4-framework/shared/either'
+import { IError } from '../../4-framework/shared/iError'
 import { AbstractEntity } from './abstractEntity'
 
 export interface IUserEntity {
