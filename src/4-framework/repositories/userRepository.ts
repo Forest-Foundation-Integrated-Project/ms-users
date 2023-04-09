@@ -1,6 +1,6 @@
 import { injectable, inject } from 'inversify'
-import { IUserRepository } from '../../business/repositories/iUserRepository'
-import { IUserEntity } from '../../domain/entities/userEntity'
+import { IUserRepository } from '../../2-business/repositories/iUserRepository'
+import { IUserEntity } from '../../1-domain/entities/userEntity'
 import { UserModel } from '../models/userModal'
 
 @injectable()

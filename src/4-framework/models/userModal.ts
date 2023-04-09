@@ -1,10 +1,8 @@
 import { DataTypes, Model } from 'sequelize'
 
 import { sequelize } from '../utility/database'
-import { IUserEntity } from '../../domain/entities/userEntity'
 
 export class UserModel extends Model {}
-export interface UserModel extends IUserEntity {}
 
 UserModel.init(
   {
@@ -42,4 +40,4 @@ UserModel.init(
   }
 )
 
-UserModel.sync({force: true})
+UserModel.sync()

@@ -1,10 +1,10 @@
 import { injectable, inject } from 'inversify'
 
-import { UserEntity } from '../../domain/entities/userEntity'
+import { UserEntity } from '../../1-domain/entities/userEntity'
 import { InputCreateUserDto, OutputCreateUserDto } from '../dto/userDto'
 import { IUserRepository, IUserRepositoryToken } from '../repositories/iUserRepository'
 import { UserCreationFailed } from '../module/errors/users'
-import { left, right } from '../../framework/shared/either'
+import { left, right } from '../../4-framework/shared/either'
 import { HandlePassword } from './handler/handlerPassword'
 import { IUseCase } from './iUseCase'
 

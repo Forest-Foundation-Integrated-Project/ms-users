@@ -1,6 +1,6 @@
-import { IUserEntity } from "../../domain/entities/userEntity"
-import { Either } from "../../framework/shared/either"
-import { IError } from "../../framework/shared/iError"
+import { IUserEntity } from "../../1-domain/entities/userEntity"
+import { Either } from "../../4-framework/shared/either"
+import { IError } from "../../4-framework/shared/iError"
 
 export interface InputCreateUserDto {
   name: string
