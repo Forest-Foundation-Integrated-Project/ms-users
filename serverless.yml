@@ -21,6 +21,15 @@ functions:
           cors:
             origin: '*'
             headers: '*'
+  viewUser:
+    handler: ${self:custom.funcDir}/viewUser.handler
+    events:
+      - http:
+          path: ${self:custom.baseApi}/user/{userId}
+          method: get
+          cors:
+            origin: '*'
+            headers: '*'
 
 plugins:
   - serverless-esbuild

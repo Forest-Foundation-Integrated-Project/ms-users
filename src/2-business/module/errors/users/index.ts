@@ -3,3 +3,9 @@ export const UserCreationFailed = {
   message: 'User creation failed',
   shortMessage: 'userCreationFailed',
 }
+
+export const UserViewingFailed = {
+  code: 'USC-002',
+  message: 'User viewing failed',
+  shortMessage: 'userViewingFailed',
+}

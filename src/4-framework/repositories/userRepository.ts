@@ -21,4 +21,12 @@ export class UserRepository implements IUserRepository {
 
     return createResponse.dataValues
   }
+
+  async view(userId: string): Promise<IUserEntity> {
+    const viewResponse = await this.userModel.findByPk(userId)
+
+    delete viewResponse?.dataValues.password
+
+    return viewResponse?.dataValues
+  }
 }

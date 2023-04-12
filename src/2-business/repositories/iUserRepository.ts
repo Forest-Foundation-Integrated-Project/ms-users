@@ -4,4 +4,5 @@ export const IUserRepositoryToken = Symbol.for('IUserRepository')
 
 export interface IUserRepository {
   create(userEntity: IUserEntity): Promise<IUserEntity>
+  view(userId: string): Promise<IUserEntity>
 }

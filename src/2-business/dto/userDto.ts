@@ -10,4 +10,9 @@ export interface InputCreateUserDto {
   enroll: string
 }
 
+export interface InputViewUserDto {
+  userId: string
+}
+
 export type OutputCreateUserDto = Either<IError, IUserEntity>
+export type OutputViewUserDto = Either<IError, IUserEntity>
