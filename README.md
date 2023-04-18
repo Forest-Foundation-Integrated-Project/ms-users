@@ -18,7 +18,7 @@ Rename the **".env.example"** file to **".env"** and fill in the variables with 
 
 If you have docker installed, with the .env file duly completed, run the command `docker compose up -d` to upload an instance of PostgreSQL
 
-Run the command `npx sequelize-cli db migrate:run` to run the migrations that will create the tables and their relationships in the database.
+Run the command `npx sequelize-cli db:migrate` to run the migrations that will create the tables and their relationships in the database.
 
 
 #### Run the `serverless offline` command to start the project.
