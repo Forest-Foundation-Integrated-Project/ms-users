@@ -30,6 +30,24 @@ functions:
           cors:
             origin: '*'
             headers: '*'
+  removeUser:
+    handler: ${self:custom.funcDir}/removeUser.handler
+    events:
+      - http:
+          path: ${self:custom.baseApi}/remove/user/{userId}
+          method: delete
+          cors:
+            origin: '*'
+            headers: '*'
+  updateUser:
+    handler: ${self:custom.funcDir}/updateUser.handler
+    events:
+      - http:
+          path: ${self:custom.baseApi}/update/user/{userId}
+          method: put
+          cors:
+            origin: '*'
+            headers: '*'
 
 plugins:
   - serverless-esbuild

@@ -9,3 +9,15 @@ export const UserViewingFailed = {
   message: 'User viewing failed',
   shortMessage: 'userViewingFailed',
 }
+
+export const UserRemovalFailed = {
+  code: 'USC-003',
+  message: 'User removal failed',
+  shortMessage: 'userRemovalFailed',
+}
+
+export const UserUpdateFailed = {
+  code: 'USC-004',
+  message: 'User update failed',
+  shortMessage: 'userUpdateFailed',
+}
