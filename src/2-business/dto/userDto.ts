@@ -14,5 +14,19 @@ export interface InputViewUserDto {
   userId: string
 }
 
+export interface InputRemoveUserDto {
+  userId: string
+}
+
+export interface InputUpdateUserDto {
+  userId: string
+  name: string
+  birthDate: Date
+  username: string
+  password: string
+}
+
 export type OutputCreateUserDto = Either<IError, IUserEntity>
 export type OutputViewUserDto = Either<IError, IUserEntity>
+export type OutputRemoveUserDto = Either<IError, boolean>
+export type OutputUpdateUserDto = Either<IError, IUserEntity>

@@ -11,7 +11,7 @@ export interface IUserEntity {
   username: string
   birthDate: Date
   password?: string
-  enroll: string
+  enroll?: string
   createdAt?: Date
   updatedAt?: Date
 }
