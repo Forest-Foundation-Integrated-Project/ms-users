@@ -37,15 +37,13 @@ export class UserRepository implements IUserRepository {
         }
       });
 
-      console.log("Resultado da Remoção: ", removeResponse)
-
       return true
   }
 
   async update(userEntity: IUserEntity): Promise<IUserEntity> {
     console.log("UserEntity: ", userEntity)
 
-    return this.userModel.update(
+    await this.userModel.update(
       { name: userEntity.name,
         username: userEntity.username,
         password: userEntity.password,
@@ -56,9 +54,14 @@ export class UserRepository implements IUserRepository {
       }
     }).then(response => {
       console.log("Response: ", response)
-      return response
     }).catch(error => {
       console.log("Error: ", error)
     })
+
+    const updateResponse = await this.userModel.findByPk(userEntity.userId)
+
+    delete updateResponse?.dataValues.password
+
+    return updateResponse?.dataValues
   }
 }
