@@ -16,7 +16,7 @@ functions:
     handler: ${self:custom.funcDir}/createUser.handler
     events:
       - http:
-          path: ${self:custom.baseApi}/user
+          path: ${self:custom.baseApi}/create
           method: post
           cors:
             origin: '*'
@@ -25,7 +25,7 @@ functions:
     handler: ${self:custom.funcDir}/viewUser.handler
     events:
       - http:
-          path: ${self:custom.baseApi}/user/{userId}
+          path: ${self:custom.baseApi}/view/{userId}
           method: get
           cors:
             origin: '*'
@@ -34,7 +34,7 @@ functions:
     handler: ${self:custom.funcDir}/removeUser.handler
     events:
       - http:
-          path: ${self:custom.baseApi}/remove/user/{userId}
+          path: ${self:custom.baseApi}/remove/{userId}
           method: delete
           cors:
             origin: '*'
@@ -43,7 +43,7 @@ functions:
     handler: ${self:custom.funcDir}/updateUser.handler
     events:
       - http:
-          path: ${self:custom.baseApi}/update/user/{userId}
+          path: ${self:custom.baseApi}/update/{userId}
           method: put
           cors:
             origin: '*'
