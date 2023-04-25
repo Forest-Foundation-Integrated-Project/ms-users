@@ -6,12 +6,17 @@ import { IError } from '../../4-framework/shared/iError'
 import { AbstractEntity } from './abstractEntity'
 
 export interface IUserEntity {
-  userId?: string
+  user_id?: string
   name: string
-  username: string
-  birthDate: Date
+  birth_date: Date
+  gender: string
   password?: string
-  enroll?: string
+  email: string
+  phone?: string
+  user_bio?: string
+  contact_info?: string
+  role: string
+  active: boolean
   createdAt?: Date
   updatedAt?: Date
 }
@@ -20,8 +25,7 @@ export class UserEntity extends AbstractEntity<IUserEntity> {
   static create(props: IUserEntity): Either<IError, UserEntity> {
     const user = new UserEntity({
       ...props,
-      userId: randomUUID(),
-      createdAt: new Date(),
+      user_id: randomUUID(),
     })
 
     return right(user)

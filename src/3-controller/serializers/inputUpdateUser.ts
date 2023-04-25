@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsDate, Matches } from 'class-validator'
+import { IsNotEmpty, IsString, IsDate, Matches, IsBoolean } from 'class-validator'
 
 import { IUserEntity } from '../../1-domain/entities/userEntity'
 import { Either } from '../../4-framework/shared/either'
@@ -20,11 +20,32 @@ export class InputUpdateUser extends Validatable<InputUpdateUser> {
 
   @IsNotEmpty()
   @IsString()
-  username!: string
+  gender!: string
 
   @IsNotEmpty()
   @IsString()
   password!: string
+
+  @IsNotEmpty()
+  @IsString()
+  email!: string
+
+  @IsString()
+  phone!: string
+
+  @IsString()
+  user_bio!: string
+
+  @IsString()
+  contact_info!: string
+
+  @IsNotEmpty()
+  @IsString()
+  role!: string
+
+  @IsNotEmpty()
+  @IsBoolean()
+  active!: boolean
 }
 
 export type OutputUpdateUser = Either<IError, IUserEntity>

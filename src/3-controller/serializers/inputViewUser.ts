@@ -8,7 +8,7 @@ import { Validatable } from './abstractValidatable'
 export class InputViewUser extends Validatable<InputViewUser> {
   @IsNotEmpty()
   @IsUUID()
-  userId!: string
+  user_id!: string
 }
 
 export type OutputViewUser = Either<IError, IUserEntity>

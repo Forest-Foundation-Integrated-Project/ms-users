@@ -12,7 +12,7 @@ export class RemoveUserUseCase implements IUseCase<InputRemoveUserDto, OutputRem
 
   async exec(input: InputRemoveUserDto): Promise<OutputRemoveUserDto> {
     try {
-      const userResult = await this.userRepository.remove(input.userId)
+      const userResult = await this.userRepository.remove(input.user_id)
       
       return right(userResult)
     } catch (error) {

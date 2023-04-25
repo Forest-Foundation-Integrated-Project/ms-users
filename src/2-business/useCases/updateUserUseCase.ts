@@ -1,6 +1,5 @@
 import { injectable, inject } from 'inversify'
 
-import { UserEntity } from '../../1-domain/entities/userEntity'
 import { IUserRepository, IUserRepositoryToken } from '../repositories/iUserRepository'
 import { UserUpdateFailed } from '../module/errors/users'
 import { left, right } from '../../4-framework/shared/either'
@@ -18,11 +17,17 @@ export class UpdateUserUseCase implements IUseCase<InputUpdateUserDto, OutputUpd
       const hashedPassword = handlePassword.hashPassword(input.password)
 
       const user = await this.userRepository.update({
-        userId: input.userId,
+        user_id: input.user_id,
         name: input.name,
-        username: input.username,
+        birth_date: input.birth_date,
+        gender: input.gender,
         password: hashedPassword,
-        birthDate: input.birthDate,
+        email: input.email,
+        phone: input.phone,
+        user_bio: input.user_bio,
+        contact_info: input.contact_info,
+        role: input.role,
+        active: input.active,
       })
 
       return right(user)

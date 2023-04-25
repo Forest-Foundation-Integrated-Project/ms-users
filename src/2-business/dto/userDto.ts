@@ -4,26 +4,37 @@ import { IError } from "../../4-framework/shared/iError"
 
 export interface InputCreateUserDto {
   name: string
-  birthDate: Date
-  username: string
+  birth_date: Date
+  gender: string
   password: string
-  enroll: string
+  email: string
+  phone?: string
+  user_bio?: string
+  contact_info?: string
+  role: string
+  active: boolean
 }
 
 export interface InputViewUserDto {
-  userId: string
+  user_id: string
 }
 
 export interface InputRemoveUserDto {
-  userId: string
+  user_id: string
 }
 
 export interface InputUpdateUserDto {
-  userId: string
+  user_id: string
   name: string
-  birthDate: Date
-  username: string
+  birth_date: Date
+  gender: string
   password: string
+  email: string
+  phone?: string
+  user_bio?: string
+  contact_info?: string
+  role: string
+  active: boolean
 }
 
 export type OutputCreateUserDto = Either<IError, IUserEntity>

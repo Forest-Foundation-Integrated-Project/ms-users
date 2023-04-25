@@ -13,22 +13,45 @@ UserModel.init(
     },
     name: {
       type: DataTypes.STRING,
-    },
-    enroll: {
-      type: DataTypes.STRING,
-      unique: true,
-    },
-    username: {
-      type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+    },
+    birth_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    gender: {
+      type: DataTypes.ENUM('male', 'female', 'other'),
+      allowNull: false,
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    birth_date: {
-      type: DataTypes.DATE,
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+      },
+    },
+    phone: {
+      type: DataTypes.STRING,
+      unique: true,
+    },
+    user_bio: {
+      type: DataTypes.STRING,
+    },
+    contact_info: {
+      type: DataTypes.STRING,
+    },
+    role: {
+      type: DataTypes.ENUM('default', 'admin'),
+      allowNull: false,
+      defaultValue: 'default'
+    },
+    active: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
   },

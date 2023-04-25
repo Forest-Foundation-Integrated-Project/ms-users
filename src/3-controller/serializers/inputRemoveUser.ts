@@ -7,7 +7,7 @@ import { Validatable } from './abstractValidatable'
 export class InputRemoveUser extends Validatable<InputRemoveUser> {
   @IsNotEmpty()
   @IsUUID()
-  userId!: string
+  user_id!: string
 }
 
 export type OutputRemoveUser = Either<IError, boolean>

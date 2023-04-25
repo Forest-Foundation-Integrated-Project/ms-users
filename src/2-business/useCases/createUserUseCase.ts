@@ -19,10 +19,15 @@ export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCre
 
       const userResult = UserEntity.create({
         name: input.name,
-        username: input.username,
+        birth_date: input.birth_date,
+        gender: input.gender,
         password: hashedPassword,
-        birthDate: input.birthDate,
-        enroll: input.enroll,
+        email: input.email,
+        phone: input.phone,
+        user_bio: input.user_bio,
+        contact_info: input.contact_info,
+        role: input.role,
+        active: input.active,
       })
 
       if (userResult.isLeft()) {

@@ -12,7 +12,7 @@ export class ViewUserUseCase implements IUseCase<InputViewUserDto, OutputViewUse
 
   async exec(input: InputViewUserDto): Promise<OutputViewUserDto> {
     try {
-      const userResult = await this.userRepository.view(input.userId)
+      const userResult = await this.userRepository.view(input.user_id)
 
     //   if (userResult.isLeft()) {
     //     return left(UserCreationFailed)
