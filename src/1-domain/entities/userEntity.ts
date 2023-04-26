@@ -13,6 +13,8 @@ export interface IUserEntity {
   password?: string
   email: string
   phone?: string
+  city: string
+  university: string
   user_bio?: string
   contact_info?: string
   role: string

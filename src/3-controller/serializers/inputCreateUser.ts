@@ -12,7 +12,7 @@ export class InputCreateUser extends Validatable<InputCreateUser> {
 
   @IsNotEmpty()
   @IsDate()
-  birthDate!: Date
+  birth_date!: Date
 
   @IsNotEmpty()
   @IsString()
@@ -28,6 +28,14 @@ export class InputCreateUser extends Validatable<InputCreateUser> {
 
   @IsString()
   phone!: string
+
+  @IsNotEmpty()
+  @IsString()
+  city!: string
+
+  @IsNotEmpty()
+  @IsString()
+  university!: string
 
   @IsString()
   user_bio!: string

@@ -9,7 +9,8 @@ module.exports = {
         type: Sequelize.UUID,
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       enroll: {
         type: Sequelize.STRING,

@@ -39,6 +39,14 @@ UserModel.init(
       type: DataTypes.STRING,
       unique: true,
     },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    university: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     user_bio: {
       type: DataTypes.STRING,
     },

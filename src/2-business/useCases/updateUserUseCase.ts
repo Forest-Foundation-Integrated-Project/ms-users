@@ -24,6 +24,8 @@ export class UpdateUserUseCase implements IUseCase<InputUpdateUserDto, OutputUpd
         password: hashedPassword,
         email: input.email,
         phone: input.phone,
+        city: input.city,
+        university: input.university,
         user_bio: input.user_bio,
         contact_info: input.contact_info,
         role: input.role,

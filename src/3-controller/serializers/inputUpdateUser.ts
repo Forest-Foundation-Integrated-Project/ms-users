@@ -33,6 +33,14 @@ export class InputUpdateUser extends Validatable<InputUpdateUser> {
   @IsString()
   phone!: string
 
+  @IsNotEmpty()
+  @IsString()
+  city!: string
+
+  @IsNotEmpty()
+  @IsString()
+  university!: string
+
   @IsString()
   user_bio!: string
 
