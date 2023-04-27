@@ -12,11 +12,11 @@ export const handler = httpHandler(async (event: APIGatewayProxyEvent, context: 
   context.callbackWaitsForEmptyEventLoop = false
   const operator = container.get(CreateUserOperator)
   const body = JSON.parse(event?.body as string)
-  const { birthDate } = body
+  const { birth_date } = body
 
   const payload = {
     ...body,
-    birthDate: new Date(birthDate),
+    birth_date: new Date(birth_date),
   }
 
   const input = new InputCreateUser(payload)

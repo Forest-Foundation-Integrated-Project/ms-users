@@ -8,7 +8,7 @@ import { Validatable } from './abstractValidatable'
 export class InputUpdateUser extends Validatable<InputUpdateUser> {
   @IsNotEmpty()
   @IsString()
-  userId!: string
+  user_id!: string
 
   @IsNotEmpty()
   @IsString()
@@ -16,7 +16,7 @@ export class InputUpdateUser extends Validatable<InputUpdateUser> {
 
   @IsNotEmpty()
   @IsDate()
-  birthDate!: Date
+  birth_date!: Date
 
   @IsNotEmpty()
   @IsString()

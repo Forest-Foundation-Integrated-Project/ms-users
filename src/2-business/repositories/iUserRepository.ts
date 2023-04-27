@@ -4,8 +4,8 @@ export const IUserRepositoryToken = Symbol.for('IUserRepository')
 
 export interface IUserRepository {
   create(userEntity: IUserEntity): Promise<IUserEntity>
-  view(userId: string): Promise<IUserEntity>
-  remove(userId: string): Promise<boolean>
+  view(user_id: string): Promise<IUserEntity>
+  remove(user_id: string): Promise<boolean>
   update(userEntity: IUserEntity): Promise<IUserEntity>
 }
 
