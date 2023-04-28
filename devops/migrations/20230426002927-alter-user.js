@@ -39,7 +39,8 @@ module.exports = {
     });
     await queryInterface.addColumn('users', 'active',{
       type: Sequelize.BOOLEAN,
-      allowNull: false
+      allowNull: false,
+      defaultValue: true
     });
   }catch (error) {
     console.log(error)
