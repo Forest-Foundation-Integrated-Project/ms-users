@@ -38,7 +38,7 @@ module.exports = {
       defaultValue: 'default'
     });
     await queryInterface.addColumn('users', 'active',{
-      type: Sequelize.STRING,
+      type: Sequelize.BOOLEAN,
       allowNull: false
     });
   }catch (error) {
