@@ -38,10 +38,9 @@ export class UserRepository implements IUserRepository {
   }
 
   async remove(remove_id: string): Promise<boolean> {
-      const removeResponse = await this.userModel.destroy({
-        where: {
-          user_id: remove_id
-        }
+      const removeResponse = await this.userModel.update(
+        {active: false},
+        {where: {user_id: remove_id}
       });
 
       console.log('Remove Response: ', removeResponse)
