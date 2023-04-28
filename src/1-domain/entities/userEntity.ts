@@ -17,8 +17,8 @@ export interface IUserEntity {
   university: string
   user_bio?: string
   contact_info?: string
-  role: string
-  active: boolean
+  role?: string
+  active?: boolean
   createdAt?: Date
   updatedAt?: Date
 }

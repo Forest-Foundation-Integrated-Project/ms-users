@@ -9,7 +9,7 @@ export class UserRepository implements IUserRepository {
 
   async create(userEntity: IUserEntity): Promise<IUserEntity> {
     const createResponse = await this.userModel.create({
-      //user_id: userEntity.user_id,
+      user_id: userEntity.user_id,
       name: userEntity.name,
       birth_date: userEntity.birth_date,
       gender: userEntity.gender,

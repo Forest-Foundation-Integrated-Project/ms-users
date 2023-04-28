@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsDate, Matches, isNotEmpty, IsBoolean } from 'class-validator'
+import { IsNotEmpty, IsString, IsDate, Matches, isNotEmpty, IsBoolean, IsOptional } from 'class-validator'
 
 import { IUserEntity } from '../../1-domain/entities/userEntity'
 import { Either } from '../../4-framework/shared/either'
@@ -26,8 +26,9 @@ export class InputCreateUser extends Validatable<InputCreateUser> {
   @IsString()
   email!: string
 
+  @IsOptional()
   @IsString()
-  phone!: string
+  phone?: string
 
   @IsNotEmpty()
   @IsString()
@@ -37,19 +38,21 @@ export class InputCreateUser extends Validatable<InputCreateUser> {
   @IsString()
   university!: string
 
+  @IsOptional()
   @IsString()
-  user_bio!: string
+  user_bio?: string
 
+  @IsOptional()
   @IsString()
-  contact_info!: string
+  contact_info?: string
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  role!: string
+  role?: string
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsBoolean()
-  active!: boolean
+  active?: boolean
 }
 
 export type OutputCreateUser = Either<IError, IUserEntity>

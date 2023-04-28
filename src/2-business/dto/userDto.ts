@@ -13,8 +13,8 @@ export interface InputCreateUserDto {
   university: string
   user_bio?: string
   contact_info?: string
-  role: string
-  active: boolean
+  role?: string
+  active?: boolean
 }
 
 export interface InputViewUserDto {
@@ -27,18 +27,18 @@ export interface InputRemoveUserDto {
 
 export interface InputUpdateUserDto {
   user_id: string
-  name: string
-  birth_date: Date
-  gender: string
-  password: string
-  email: string
+  name?: string
+  birth_date?: Date
+  gender?: string
+  password?: string
+  email?: string
   phone?: string
-  city: string
-  university: string
+  city?: string
+  university?: string
   user_bio?: string
   contact_info?: string
-  role: string
-  active: boolean
+  role?: string
+  active?: boolean
 }
 
 export type OutputCreateUserDto = Either<IError, IUserEntity>
