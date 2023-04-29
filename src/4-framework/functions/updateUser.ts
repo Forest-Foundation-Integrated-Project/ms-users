@@ -17,7 +17,7 @@ export const handler = httpHandler(async (event: APIGatewayProxyEvent, context: 
 
   const payload = {
     ...body,
-    birth_date: new Date(birth_date),
+    ...(birth_date && {birth_date: new Date(birth_date)}),
     user_id: path?.user_id
   }
 
