@@ -2,6 +2,7 @@ import { injectable, inject } from 'inversify'
 import { IUserRepository } from '../../2-business/repositories/iUserRepository'
 import { IUserEntity } from '../../1-domain/entities/userEntity'
 import { UserModel } from '../models/userModel'
+import { InputUpdateUserDto } from '../../2-business/dto/userDto'
 
 @injectable()
 export class UserRepository implements IUserRepository {
@@ -46,7 +47,7 @@ export class UserRepository implements IUserRepository {
       return !!removeResponse[0]
   }
 
-  async update(userEntity: IUserEntity): Promise<IUserEntity> {
+  async update(userEntity: InputUpdateUserDto): Promise<IUserEntity> {
     console.log("UserEntity: ", userEntity)
 
     await this.userModel.update(

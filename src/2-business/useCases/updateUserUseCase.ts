@@ -14,14 +14,13 @@ export class UpdateUserUseCase implements IUseCase<InputUpdateUserDto, OutputUpd
   async exec(input: InputUpdateUserDto): Promise<OutputUpdateUserDto> {
     try {
       const handlePassword = new HandlePassword()
-      const hashedPassword = handlePassword.hashPassword(input.password)
 
       const user = await this.userRepository.update({
         user_id: input.user_id,
         name: input.name,
         birth_date: input.birth_date,
         gender: input.gender,
-        password: hashedPassword,
+        ...(input.password && {password: handlePassword.hashPassword(input.password)}),
         email: input.email,
         phone: input.phone,
         city: input.city,
