@@ -43,10 +43,7 @@ export class UserRepository implements IUserRepository {
         {where: {user_id: remove_id}
       });
 
-      console.log('Remove Response: ', removeResponse)
-      
-      // Verificar o valor de removeResponse para alterar o retorno da função remove
-      return true
+      return !!removeResponse[0]
   }
 
   async update(userEntity: IUserEntity): Promise<IUserEntity> {
