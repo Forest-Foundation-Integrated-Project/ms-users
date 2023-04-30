@@ -6,7 +6,7 @@ module.exports = {
     await queryInterface.removeColumn('users', 'enroll',{});
     await queryInterface.removeColumn('users', 'username',{});
     await queryInterface.addColumn('users', 'gender',{
-      type: Sequelize.ENUM('man', 'woman', 'other'),
+      type: Sequelize.ENUM('male', 'female', 'other'),
       allowNull: false
     });
     await queryInterface.addColumn('users', 'email',{
