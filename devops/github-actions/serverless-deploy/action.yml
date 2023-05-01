@@ -1,0 +1,18 @@
+name: "Serverless Deploy"
+description: ""
+inputs:
+  stage:
+    description: 'stage'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Serverless Deploy
+      shell: bash
+      run: |
+        npx sls deploy -v -s ${{ inputs.stage }} --force
+    - name: Tag commit
+      uses: tvdias/github-tagger@v0.0.1
+      with:
+        repo-token: "${{ github.token }}"
+        tag: "${{ inputs.stage }}-${{ github.run_number }}"
