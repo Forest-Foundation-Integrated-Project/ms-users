@@ -1,42 +1,46 @@
-import { IsNotEmpty, IsString, IsDate, Matches, isNotEmpty, IsBoolean, IsOptional } from 'class-validator'
+import { IsNotEmpty, IsString, IsDate, Matches, IsBoolean, IsOptional } from 'class-validator'
 
 import { IUserEntity } from '../../1-domain/entities/userEntity'
 import { Either } from '../../4-framework/shared/either'
 import { IError } from '../../4-framework/shared/iError'
 import { Validatable } from './abstractValidatable'
 
-export class InputCreateUser extends Validatable<InputCreateUser> {
+export class InputUpdateUser extends Validatable<InputUpdateUser> {
   @IsNotEmpty()
   @IsString()
-  name!: string
+  user_id!: string
 
-  @IsNotEmpty()
+  @IsOptional()
+  @IsString()
+  name?: string
+
+  @IsOptional()
   @IsDate()
-  birth_date!: Date
+  birth_date?: Date
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  gender!: string
+  gender?: string
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  password!: string
+  password?: string
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  email!: string
+  email?: string
 
   @IsOptional()
   @IsString()
   phone?: string
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  city!: string
+  city?: string
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  university!: string
+  university?: string
 
   @IsOptional()
   @IsString()
@@ -55,4 +59,4 @@ export class InputCreateUser extends Validatable<InputCreateUser> {
   active?: boolean
 }
 
-export type OutputCreateUser = Either<IError, IUserEntity>
+export type OutputUpdateUser = Either<IError, IUserEntity>

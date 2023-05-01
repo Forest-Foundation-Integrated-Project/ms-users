@@ -5,26 +5,20 @@ import { APIGatewayProxyEvent, Context } from 'aws-lambda'
 import { httpHandler } from '../utility/httpHandler'
 import { container } from '../shared/ioc/container'
 import { httpResponse } from '../utility/httpResponse'
-import { InputCreateUser } from '../../3-controller/serializers/inputCreateUser'
-import { CreateUserOperator } from '../../3-controller/operators/createUserOperator'
+import { ViewUserOperator } from '../../3-controller/operators/viewUserOperator'
+import { InputViewUser } from '../../3-controller/serializers/inputViewUser'
 
 export const handler = httpHandler(async (event: APIGatewayProxyEvent, context: Context) => {
   context.callbackWaitsForEmptyEventLoop = false
-  const operator = container.get(CreateUserOperator)
-  const body = JSON.parse(event?.body as string)
-  const { birth_date } = body
+  const operator = container.get(ViewUserOperator)
+  const body = event.pathParameters
 
-  const payload = {
-    ...body,
-    birth_date: new Date(birth_date),
-  }
-
-  const input = new InputCreateUser(payload)
+  const input = new InputViewUser(body as Object)
   const result = await operator.exec(input)
 
   if (result.isLeft()) {
     return httpResponse.badRequest(result.value)
   }
 
-  return httpResponse.created(result.value)
+  return httpResponse.ok(result.value)
 })

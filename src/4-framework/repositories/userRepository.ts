@@ -1,7 +1,8 @@
 import { injectable, inject } from 'inversify'
 import { IUserRepository } from '../../2-business/repositories/iUserRepository'
 import { IUserEntity } from '../../1-domain/entities/userEntity'
-import { UserModel } from '../models/userModal'
+import { UserModel } from '../models/userModel'
+import { InputUpdateUserDto } from '../../2-business/dto/userDto'
 
 @injectable()
 export class UserRepository implements IUserRepository {
@@ -9,16 +10,73 @@ export class UserRepository implements IUserRepository {
 
   async create(userEntity: IUserEntity): Promise<IUserEntity> {
     const createResponse = await this.userModel.create({
-      user_id: userEntity.userId,
+      user_id: userEntity.user_id,
       name: userEntity.name,
-      username: userEntity.username,
+      birth_date: userEntity.birth_date,
+      gender: userEntity.gender,
       password: userEntity.password,
-      enroll: userEntity.enroll,
-      birth_date: userEntity.birthDate,
+      email: userEntity.email,
+      phone: userEntity.phone,
+      city: userEntity.city,
+      university: userEntity.university,
+      user_bio: userEntity.user_bio,
+      contact_info: userEntity.contact_info,
+      role: userEntity.role,
+      active: userEntity.active,
     })
 
     delete createResponse.dataValues.password
 
     return createResponse.dataValues
+  }
+
+  async view(view_id: string): Promise<IUserEntity> {
+    const viewResponse = await this.userModel.findByPk(view_id)
+
+    delete viewResponse?.dataValues.password
+
+    return viewResponse?.dataValues
+  }
+
+  async remove(remove_id: string): Promise<boolean> {
+      const removeResponse = await this.userModel.update(
+        {active: false},
+        {where: {user_id: remove_id}
+      });
+
+      return !!removeResponse[0]
+  }
+
+  async update(userEntity: InputUpdateUserDto): Promise<IUserEntity> {
+    console.log("UserEntity: ", userEntity)
+
+    await this.userModel.update(
+      { name: userEntity.name,
+        birth_date: userEntity.birth_date,
+        gender: userEntity.gender,
+        password: userEntity.password,
+        email: userEntity.email,
+        phone: userEntity.phone,
+        city: userEntity.city,
+        university: userEntity.university,
+        user_bio: userEntity.user_bio,
+        contact_info: userEntity.contact_info,
+        role: userEntity.role,
+        active: userEntity.active},
+      {
+      where: {
+        user_id: userEntity.user_id
+      }
+    }).then(response => {
+      console.log("Response: ", response)
+    }).catch(error => {
+      console.log("Error: ", error)
+    })
+
+    const updateResponse = await this.userModel.findByPk(userEntity.user_id)
+
+    delete updateResponse?.dataValues.password
+
+    return updateResponse?.dataValues
   }
 }

@@ -1,27 +1,26 @@
 import { injectable, inject } from 'inversify'
 
-import { UserEntity } from '../../1-domain/entities/userEntity'
-import { InputCreateUserDto, OutputCreateUserDto } from '../dto/userDto'
 import { IUserRepository, IUserRepositoryToken } from '../repositories/iUserRepository'
-import { UserCreationFailed } from '../module/errors/users'
+import { UserNotFound, UserUpdateFailed } from '../module/errors/users'
 import { left, right } from '../../4-framework/shared/either'
 import { HandlePassword } from './handler/handlerPassword'
 import { IUseCase } from './iUseCase'
+import { InputUpdateUserDto, OutputUpdateUserDto } from '../dto/userDto'
 
 @injectable()
-export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCreateUserDto> {
+export class UpdateUserUseCase implements IUseCase<InputUpdateUserDto, OutputUpdateUserDto> {
   public constructor(@inject(IUserRepositoryToken) private userRepository: IUserRepository) {}
 
-  async exec(input: InputCreateUserDto): Promise<OutputCreateUserDto> {
+  async exec(input: InputUpdateUserDto): Promise<OutputUpdateUserDto> {
     try {
       const handlePassword = new HandlePassword()
-      const hashedPassword = handlePassword.hashPassword(input.password)
 
-      const userResult = UserEntity.create({
+      const user = await this.userRepository.update({
+        user_id: input.user_id,
         name: input.name,
         birth_date: input.birth_date,
         gender: input.gender,
-        password: hashedPassword,
+        ...(input.password && {password: handlePassword.hashPassword(input.password)}),
         email: input.email,
         phone: input.phone,
         city: input.city,
@@ -32,15 +31,11 @@ export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCre
         active: input.active,
       })
 
-      if (userResult.isLeft()) {
-        return left(UserCreationFailed)
-      }
-
-      const user = await this.userRepository.create(userResult.value.export())
+      if (!user) return left (UserNotFound)
 
       return right(user)
     } catch (error) {
-      return left(UserCreationFailed)
+      return left(UserUpdateFailed)
     }
   }
 }

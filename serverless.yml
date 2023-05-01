@@ -8,7 +8,7 @@ provider:
 
 custom:
   serviceName: users
-  contextPath: /v1/${self:custom.serviceName}
+  contextPath: api/v1/${self:custom.serviceName}
   baseApi: ${self:custom.contextPath}
   funcDir: src/4-framework/functions
 functions:
@@ -16,8 +16,35 @@ functions:
     handler: ${self:custom.funcDir}/createUser.handler
     events:
       - http:
-          path: ${self:custom.baseApi}/user
+          path: ${self:custom.baseApi}/
           method: post
+          cors:
+            origin: '*'
+            headers: '*'
+  viewUser:
+    handler: ${self:custom.funcDir}/viewUser.handler
+    events:
+      - http:
+          path: ${self:custom.baseApi}/{user_id}
+          method: get
+          cors:
+            origin: '*'
+            headers: '*'
+  removeUser:
+    handler: ${self:custom.funcDir}/removeUser.handler
+    events:
+      - http:
+          path: ${self:custom.baseApi}/{user_id}
+          method: delete
+          cors:
+            origin: '*'
+            headers: '*'
+  updateUser:
+    handler: ${self:custom.funcDir}/updateUser.handler
+    events:
+      - http:
+          path: ${self:custom.baseApi}/{user_id}
+          method: put
           cors:
             origin: '*'
             headers: '*'
