@@ -1,0 +1,27 @@
+name: "AWS"
+description: ""
+inputs:
+  aws-access-key-id:
+    description: 'aws-access-key-id'
+    required: true
+  aws-secret-access-key:
+    description: 'aws-secret-access-key'
+    required: true
+  aws-region:
+    description: 'aws-region'
+    required: true
+    default: 'us-east-1'
+runs:
+  using: "composite"
+  steps:
+    - name: Teste secret
+      shell: bash
+      run: echo ${{ inputs.aws-access-key-id }}
+
+    - name: AWS - Configure credentials
+      id: aws-credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+          aws-access-key-id: ${{ inputs.aws-access-key-id }}
+          aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
+          aws-region: ${{ inputs.aws-region }}
