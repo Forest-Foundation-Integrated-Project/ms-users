@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2.3.5
         with:
@@ -26,6 +25,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Teste location
+        shell: bash
+        run: pwd
       - name: AWS Configure credentials
         uses: ./devops/github-actions/aws
         with:
