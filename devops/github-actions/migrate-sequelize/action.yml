@@ -13,7 +13,7 @@ runs:
           parameterPairs: "
               /ifsp/infra/EC2-PS/host = AWS_DB_HOST,
               /ifsp/infra/EC2-PS/port = AWS_DB_PORT,
-              /ifsp/infra/EC2-PS/userna = AWS_DB_USER,
+              /ifsp/infra/EC2-PS/username = AWS_DB_USER,
               /ifsp/infra/EC2-PS/password = AWS_DB_PASSWORD"
           withDecryption: "true"
     - name: Migrate - running
