@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       - uses: actions/checkout@v2.3.5
@@ -25,8 +28,9 @@ jobs:
       - name: AWS Configure credentials
         uses: ./devops/github-actions/aws
         with:
-          aws-access-key-id: ${{ secrets.PROD_AWS_KEY }}
-          aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET }}
+          aws-region: us-east-1
+          # aws-access-key-id: ${{ secrets.PROD_AWS_KEY }}
+          # aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET }}
 
       - name: Migrate Sequelize
         uses: ./devops/github-actions/migrate-sequelize

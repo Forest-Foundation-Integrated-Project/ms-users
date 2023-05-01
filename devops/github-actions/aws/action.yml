@@ -16,8 +16,9 @@ runs:
   steps:
     - name: AWS - Configure credentials
       id: aws-credentials
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@v2
       with:
-          aws-access-key-id: ${{ inputs.aws-access-key-id }}
-          aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
+          # aws-access-key-id: ${{ inputs.aws-access-key-id }}
+          # aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
+          role-to-assume: arn:aws:iam::670755457128:role/OIDC_Link-Lambda
           aws-region: ${{ inputs.aws-region }}
