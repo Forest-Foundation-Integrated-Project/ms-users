@@ -8,6 +8,8 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2.3.5
         with:
@@ -20,33 +22,17 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Teste LS
-        shell: bash
-        run: ls ./devops/github-actions/aws
-
-  aws-configure:
-    needs: build
-    steps:
-      - name: Teste LS
-        shell: bash
-        run: ls ../
       - name: AWS Configure credentials
         uses: ./devops/github-actions/aws
         with:
           aws-access-key-id: ${{ secrets.PROD_AWS_KEY }}
           aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET }}
 
-  db-migration:
-    needs: aws-configure
-    steps:
       - name: Migrate Sequelize
         uses: ./devops/github-actions/migrate-sequelize
         with:
           db-name: campus_hub
 
-  serverless-deploy:
-    needs: db-migration
-    steps:
       - name: Serverless Deploy
         uses: ./devops/github-actions/serverless-deploy
         with:
