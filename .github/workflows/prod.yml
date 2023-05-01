@@ -29,8 +29,8 @@ jobs:
         uses: ./devops/github-actions/aws
         with:
           aws-region: us-east-1
-          # aws-access-key-id: ${{ secrets.PROD_AWS_KEY }}
-          # aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET }}
+          aws-access-key-id: ${{ secrets.PROD_AWS_KEY }}
+          aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET }}
 
       - name: Migrate Sequelize
         uses: ./devops/github-actions/migrate-sequelize
