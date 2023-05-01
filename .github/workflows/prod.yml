@@ -17,22 +17,34 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: '16.x'
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+  aws-configure:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
       - name: AWS Configure credentials
         uses: ./devops/github-actions/aws
         with:
           aws-access-key-id: ${{ secrets.PROD_AWS_KEY }}
           aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET }}
 
+  db-migration:
+    runs-on: ubuntu-latest
+    needs: aws-configure
+    steps:
       - name: Migrate Sequelize
         uses: ./devops/github-actions/migrate-sequelize
         with:
           db-name: campus_hub
 
+  serverless-deploy:
+    runs-on: ubuntu-latest
+    needs: db-migration
+    steps:
       - name: Serverless Deploy
         uses: ./devops/github-actions/serverless-deploy
         with:
