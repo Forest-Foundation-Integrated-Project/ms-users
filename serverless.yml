@@ -5,6 +5,8 @@ useDotenv: true
 provider:
   name: aws
   runtime: nodejs18.x
+  region: 'us-east-1'
+  memorySize: 512
 
 custom:
   serviceName: users
