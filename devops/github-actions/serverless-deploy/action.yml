@@ -11,4 +11,8 @@ runs:
       shell: bash
       run: |
         npx serverless deploy -v -s ${{ inputs.stage }} --force
-
+    - name: Tag commit
+      uses: tvdias/github-tagger@v0.0.1
+      with:
+        repo-token: "${{ github.token }}"
+        tag: "${{ inputs.stage }}-${{ github.run_number }}"
