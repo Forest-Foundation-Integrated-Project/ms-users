@@ -20,22 +20,18 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-      - name: Teste location
-        shell: bash
-        run: pwd
+
       - name: Teste LS
         shell: bash
-        run: ls
-      - name: Teste previous LS
-        shell: bash
-        run: ls ../
+        run: ls ./devops/github-actions/aws
+
   aws-configure:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Teste location
+      - name: Teste LS
         shell: bash
-        run: pwd
+        run: ls ./devops/github-actions/aws
       - name: AWS Configure credentials
         uses: ./devops/github-actions/aws
         with:
