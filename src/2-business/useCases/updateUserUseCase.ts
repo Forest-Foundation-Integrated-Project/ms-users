@@ -1,7 +1,7 @@
 import { injectable, inject } from 'inversify'
 
 import { IUserRepository, IUserRepositoryToken } from '../repositories/iUserRepository'
-import { UserUpdateFailed } from '../module/errors/users'
+import { UserNotFound, UserUpdateFailed } from '../module/errors/users'
 import { left, right } from '../../4-framework/shared/either'
 import { HandlePassword } from './handler/handlerPassword'
 import { IUseCase } from './iUseCase'
@@ -30,6 +30,8 @@ export class UpdateUserUseCase implements IUseCase<InputUpdateUserDto, OutputUpd
         role: input.role,
         active: input.active,
       })
+
+      if (!user) return left (UserNotFound)
 
       return right(user)
     } catch (error) {

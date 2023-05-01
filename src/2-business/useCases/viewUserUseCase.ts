@@ -4,7 +4,7 @@ import { IUserRepository, IUserRepositoryToken } from '../repositories/iUserRepo
 import { left, right } from '../../4-framework/shared/either'
 import { IUseCase } from './iUseCase'
 import { InputViewUserDto, OutputViewUserDto } from '../dto/userDto'
-import { UserViewingFailed } from '../module/errors/users'
+import { UserNotFound, UserViewingFailed } from '../module/errors/users'
 
 @injectable()
 export class ViewUserUseCase implements IUseCase<InputViewUserDto, OutputViewUserDto> {
@@ -13,10 +13,8 @@ export class ViewUserUseCase implements IUseCase<InputViewUserDto, OutputViewUse
   async exec(input: InputViewUserDto): Promise<OutputViewUserDto> {
     try {
       const userResult = await this.userRepository.view(input.user_id)
-
-    //   if (userResult.isLeft()) {
-    //     return left(UserCreationFailed)
-    //   }
+      
+      if (!userResult) return left (UserNotFound)
 
       return right(userResult)
     } catch (error) {
