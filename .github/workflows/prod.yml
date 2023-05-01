@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.5
         with:
@@ -26,7 +25,6 @@ jobs:
         run: ls ./devops/github-actions/aws
 
   aws-configure:
-    runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Teste LS
@@ -39,7 +37,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET }}
 
   db-migration:
-    runs-on: ubuntu-latest
     needs: aws-configure
     steps:
       - name: Migrate Sequelize
@@ -48,7 +45,6 @@ jobs:
           db-name: campus_hub
 
   serverless-deploy:
-    runs-on: ubuntu-latest
     needs: db-migration
     steps:
       - name: Serverless Deploy
