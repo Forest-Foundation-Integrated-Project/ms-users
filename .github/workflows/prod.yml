@@ -31,7 +31,7 @@ jobs:
     steps:
       - name: Teste LS
         shell: bash
-        run: ls
+        run: ls ../
       - name: AWS Configure credentials
         uses: ./devops/github-actions/aws
         with:
