@@ -1,0 +1,40 @@
+name: PROD
+
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v2.3.5
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: AWS Configure credentials
+        uses: ./devops/github-actions/aws
+        with:
+          aws-access-key-id: ${{ secrets.PROD_AWS_KEY }}
+          aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET }}
+
+      - name: Migrate Sequelize
+        uses: ./devops/github-actions/migrate-sequelize
+        with:
+          db-name: campus_hub
+
+      - name: Serverless Deploy
+        uses: ./devops/github-actions/serverless-deploy
+        with:
+          stage: prod
