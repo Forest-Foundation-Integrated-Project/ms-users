@@ -1,11 +1,8 @@
 name: "AWS"
 description: ""
 inputs:
-  aws-access-key-id:
-    description: 'aws-access-key-id'
-    required: true
-  aws-secret-access-key:
-    description: 'aws-secret-access-key'
+  role-to-assume:
+    description: 'role-to-assume'
     required: true
   aws-region:
     description: 'aws-region'
@@ -18,7 +15,5 @@ runs:
       id: aws-credentials
       uses: aws-actions/configure-aws-credentials@v2
       with:
-          aws-access-key-id: ${{ inputs.aws-access-key-id }}
-          aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
-          # role-to-assume: arn:aws:iam::670755457128:role/OIDC_Link-Lambda
+          role-to-assume: ${{ inputs.role-to-assume }}
           aws-region: ${{ inputs.aws-region }}
