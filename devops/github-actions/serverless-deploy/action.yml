@@ -10,4 +10,4 @@ runs:
     - name: Serverless Deploy
       shell: bash
       run: |
-        serverless deploy -v -s ${{ inputs.stage }}
+        serverless deploy --verbose -s ${{ inputs.stage }}
