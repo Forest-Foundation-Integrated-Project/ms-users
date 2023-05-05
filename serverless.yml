@@ -12,6 +12,9 @@ provider:
     restApiRootResourceId: 4efcqfttn0
 
 custom:
+  esbuild:
+    external:
+      - pg-native
   serviceName: users
   contextPath: api/v1/${self:custom.serviceName}
   baseApi: ${self:custom.contextPath}

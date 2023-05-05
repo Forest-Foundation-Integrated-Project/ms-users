@@ -1,4 +1,5 @@
 import { Sequelize, Options } from 'sequelize'
+const pg = require('pg');
 
 const db = {
   host: process.env.DB_HOST,
@@ -11,6 +12,7 @@ const db = {
 const dbConnection: Options = {
   dialect: 'postgres',
   host: db.host,
+  dialectModule: pg,
   port: Number(db.port),
   username: db.userName,
   password: db.password,
