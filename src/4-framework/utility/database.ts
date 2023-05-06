@@ -10,6 +10,7 @@ const db = {
 }
 
 console.log(`logging db variables ${db}`);
+console.log(JSON.stringify(db));
 
 const dbConnection: Options = {
   dialect: 'postgres',
