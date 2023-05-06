@@ -9,7 +9,7 @@ const db = {
   password: process.env.DB_PASSWORD,
 }
 
-console.log(`logging db variables ${db}`);
+console.log(`logging db variables ${JSON.stringify(db)}`);
 
 const dbConnection: Options = {
   dialect: 'postgres',
