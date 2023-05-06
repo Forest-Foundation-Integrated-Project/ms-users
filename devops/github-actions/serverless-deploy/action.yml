@@ -10,4 +10,4 @@ runs:
     - name: Serverless Deploy
       shell: bash
       run: |
-        serverless deploy --verbose -s ${{ inputs.stage }}
+        npx sls deploy --verbose -s ${{ inputs.stage }}
