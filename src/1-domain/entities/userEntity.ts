@@ -21,6 +21,7 @@ export interface IUserEntity {
   active?: boolean
   createdAt?: Date
   updatedAt?: Date
+  emailCheck?: boolean
 }
 
 export class UserEntity extends AbstractEntity<IUserEntity> {

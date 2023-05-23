@@ -63,6 +63,11 @@ UserModel.init(
       allowNull: false,
       defaultValue: true
     },
+    emailCheck: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    }
   },
   {
     sequelize,
