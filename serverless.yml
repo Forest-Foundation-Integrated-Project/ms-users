@@ -9,7 +9,7 @@ provider:
   memorySize: 512
   apiGateway:
     restApiId: 411z282v69
-    restApiRootResourceId: 4efcqfttn0
+    restApiRootResourceId: 69qxlf
   environment:
     DB_HOST: ${env:DB_HOST, ssm:/ifsp/infra/EC2-PS/host}
     DB_PORT: ${env:DB_PORT, ssm:/ifsp/infra/EC2-PS/port}
@@ -22,7 +22,7 @@ custom:
     external:
       - pg-native
   serviceName: users
-  contextPath: api/v1/${self:custom.serviceName}
+  contextPath: ${self:custom.serviceName}
   baseApi: ${self:custom.contextPath}
   funcDir: src/4-framework/functions
 functions:
@@ -41,6 +41,9 @@ functions:
       - http:
           path: ${self:custom.baseApi}/{user_id}
           method: get
+          authorizer:
+            name: ApiGatewayAuthorizer
+            arn: arn:aws:cognito-idp:us-east-1:670755457128:userpool/us-east-1_V0H6P8hB5
           cors:
             origin: '*'
             headers: '*'

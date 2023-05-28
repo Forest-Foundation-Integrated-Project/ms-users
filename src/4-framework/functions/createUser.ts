@@ -18,7 +18,7 @@ export const handler = httpHandler(async (event: APIGatewayProxyEvent, context: 
     ...body,
     birth_date: new Date(birth_date),
   }
-
+  console.log('payload ', payload)
   const input = new InputCreateUser(payload)
   const result = await operator.exec(input)
 

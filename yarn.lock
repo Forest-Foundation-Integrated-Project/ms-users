@@ -710,10 +710,10 @@
     "@aws-sdk/types" "3.303.0"
     tslib "^2.5.0"
 
-"@esbuild/win32-x64@0.17.14":
+"@esbuild/linux-x64@0.17.14":
   version "0.17.14"
-  resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.17.14.tgz"
-  integrity sha512-gPQmsi2DKTaEgG14hc3CHXHp62k8g6qr0Pas+I4lUxRMugGSATh/Bi8Dgusoz9IQ0IfdrvLpco6kujEIBoaogA==
+  resolved "https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.17.14.tgz"
+  integrity sha512-8KHF17OstlK4DuzeF/KmSgzrTWQrkWj5boluiiq7kvJCiQVzUrmSkaBvcLB2UgHpKENO2i6BthPkmUhNDaJsVw==
 
 "@hapi/accept@^6.0.1":
   version "6.0.1"

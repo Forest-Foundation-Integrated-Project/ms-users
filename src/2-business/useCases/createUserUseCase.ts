@@ -37,9 +37,11 @@ export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCre
       }
 
       const user = await this.userRepository.create(userResult.value.export())
+      console.log('create::user => ', user)
 
       return right(user)
     } catch (error) {
+      console.log('create::error => ', error)
       return left(UserCreationFailed)
     }
   }
