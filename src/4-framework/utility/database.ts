@@ -9,12 +9,6 @@ const db = {
   password: process.env.DB_PASSWORD,
 }
 
-console.log('logging db variables');
-console.log(process.env.DB_HOST);
-console.log(process.env.DB_PORT);
-console.log(process.env.DB_NAME);
-console.log(process.env.DB_USER);
-
 const dbConnection: Options = {
   dialect: 'postgres',
   host: db.host,
