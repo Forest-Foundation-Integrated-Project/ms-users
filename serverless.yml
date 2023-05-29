@@ -27,7 +27,7 @@ custom:
   funcDir: src/4-framework/functions
   ms-account-digital-authorizer:
     type: TOKEN
-    authorizerId: arn:aws:iam::670755457128:user/github-actions
+    authorizerId: 4efcqfttn0
 functions:
   createUser:
     handler: ${self:custom.funcDir}/createUser.handler
