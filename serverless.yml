@@ -25,6 +25,10 @@ custom:
   contextPath: ${self:custom.serviceName}
   baseApi: ${self:custom.contextPath}
   funcDir: src/4-framework/functions
+  ms-account-digital-authorizer:
+    type: TOKEN
+    authorizerId:
+      Ref: Authorizer
 functions:
   createUser:
     handler: ${self:custom.funcDir}/createUser.handler
@@ -41,9 +45,7 @@ functions:
       - http:
           path: ${self:custom.baseApi}/{user_id}
           method: get
-          # authorizer:
-          #   name: ApiGatewayAuthorizer
-          #   arn: arn:aws:cognito-idp:us-east-1:670755457128:userpool/us-east-1_V0H6P8hB5
+          authorizer: ${self:custom.ms-account-digital-authorizer}
           cors:
             origin: '*'
             headers: '*'
