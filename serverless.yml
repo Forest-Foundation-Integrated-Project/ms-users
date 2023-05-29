@@ -4,12 +4,12 @@ useDotenv: true
 
 provider:
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs16.x
   region: 'us-east-1'
   memorySize: 512
   apiGateway:
     restApiId: 411z282v69
-    restApiRootResourceId: 69qxlf
+    restApiRootResourceId: 4efcqfttn0
   environment:
     DB_HOST: ${env:DB_HOST, ssm:/ifsp/infra/EC2-PS/host}
     DB_PORT: ${env:DB_PORT, ssm:/ifsp/infra/EC2-PS/port}
@@ -41,9 +41,9 @@ functions:
       - http:
           path: ${self:custom.baseApi}/{user_id}
           method: get
-          authorizer:
-            name: ApiGatewayAuthorizer
-            arn: arn:aws:cognito-idp:us-east-1:670755457128:userpool/us-east-1_V0H6P8hB5
+          # authorizer:
+          #   name: ApiGatewayAuthorizer
+          #   arn: arn:aws:cognito-idp:us-east-1:670755457128:userpool/us-east-1_V0H6P8hB5
           cors:
             origin: '*'
             headers: '*'
