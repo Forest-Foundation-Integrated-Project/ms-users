@@ -27,7 +27,7 @@ custom:
   funcDir: src/4-framework/functions
   ms-account-digital-authorizer:
     type: TOKEN
-    authorizerId: 4efcqfttn0
+    authorizerId: qh9wdu
 functions:
   createUser:
     handler: ${self:custom.funcDir}/createUser.handler
