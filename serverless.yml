@@ -25,7 +25,7 @@ custom:
   contextPath: ${self:custom.serviceName}
   baseApi: ${self:custom.contextPath}
   funcDir: src/4-framework/functions
-  ms-account-digital-authorizer:
+  ms-account-authorizer:
     type: TOKEN
     authorizerId: ${ssm:/ifsp/ms-auth/authorizer-id}
 functions:
@@ -44,7 +44,7 @@ functions:
       - http:
           path: ${self:custom.baseApi}/{user_id}
           method: get
-          authorizer: ${self:custom.ms-account-digital-authorizer}
+          authorizer: ${self:custom.ms-account-authorizer}
           cors:
             origin: '*'
             headers: '*'
