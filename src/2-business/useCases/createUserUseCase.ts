@@ -46,7 +46,7 @@ export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCre
         const createUserIdentity = await this.identityService.createUserIdentity({
           email: userCreation.email,
           name: userCreation.name,
-          password: hashedPassword,
+          password: input.password,
           user_id: userCreation.user_id
         })
         console.log('createUserIdentity => ', createUserIdentity)
