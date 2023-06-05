@@ -43,7 +43,15 @@ export interface InputUpdateUserDto {
   active?: boolean
 }
 
+export interface InputResetPasswordDto {
+  user_id: string
+  user_context_id?: string
+  password?: string
+  email?: string
+}
+
 export type OutputCreateUserDto = Either<IError, IUserEntity>
 export type OutputViewUserDto = Either<IError, IUserEntity>
 export type OutputRemoveUserDto = Either<IError, boolean>
 export type OutputUpdateUserDto = Either<IError, IUserEntity>
+export type OutputResetPasswordDto = Either<IError, boolean>
