@@ -1,14 +1,18 @@
-import { IsNotEmpty, IsString, IsDate, Matches, IsBoolean, IsOptional } from 'class-validator'
+import { IsNotEmpty, IsString, IsDate, Matches, IsBoolean, IsOptional, IsUUID, IsIn } from 'class-validator'
 
-import { IUserEntity } from '../../1-domain/entities/userEntity'
+import { GenderTypes, IUserEntity } from '../../1-domain/entities/userEntity'
 import { Either } from '../../4-framework/shared/either'
 import { IError } from '../../4-framework/shared/iError'
 import { Validatable } from './abstractValidatable'
 
 export class InputUpdateUser extends Validatable<InputUpdateUser> {
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   user_id!: string
+
+  @IsOptional()
+  @IsUUID()
+  user_context_id?: string
 
   @IsOptional()
   @IsString()
@@ -19,8 +23,8 @@ export class InputUpdateUser extends Validatable<InputUpdateUser> {
   birth_date?: Date
 
   @IsOptional()
-  @IsString()
-  gender?: string
+  @IsIn(Object.values(GenderTypes))
+  gender?: GenderTypes
 
   @IsOptional()
   @IsString()

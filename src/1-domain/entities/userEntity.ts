@@ -5,11 +5,17 @@ import { Either, right } from '../../4-framework/shared/either'
 import { IError } from '../../4-framework/shared/iError'
 import { AbstractEntity } from './abstractEntity'
 
+export enum GenderTypes {
+  MALE = 'male',
+  FEMALE = 'female',
+  OTHER = 'other',
+}
+
 export interface IUserEntity {
   user_id?: string
   name: string
   birth_date: Date
-  gender: string
+  gender: GenderTypes
   password?: string
   email: string
   phone?: string

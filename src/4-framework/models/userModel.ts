@@ -1,8 +1,9 @@
 import { DataTypes, Model } from 'sequelize'
 
 import { sequelize } from '../utility/database'
+import { GenderTypes } from '../../1-domain/entities/userEntity'
 
-export class UserModel extends Model {}
+export class UserModel extends Model { }
 
 UserModel.init(
   {
@@ -20,7 +21,9 @@ UserModel.init(
       allowNull: false,
     },
     gender: {
-      type: DataTypes.ENUM('male', 'female', 'other'),
+      type: DataTypes.ENUM({
+        values: Object.values(GenderTypes)
+      }),
       allowNull: false,
     },
     password: {

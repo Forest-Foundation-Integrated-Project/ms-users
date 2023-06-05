@@ -1,11 +1,11 @@
-import { IUserEntity } from "../../1-domain/entities/userEntity"
+import { GenderTypes, IUserEntity } from "../../1-domain/entities/userEntity"
 import { Either } from "../../4-framework/shared/either"
 import { IError } from "../../4-framework/shared/iError"
 
 export interface InputCreateUserDto {
   name: string
   birth_date: Date
-  gender: string
+  gender: GenderTypes
   password: string
   email: string
   phone?: string
@@ -27,9 +27,10 @@ export interface InputRemoveUserDto {
 
 export interface InputUpdateUserDto {
   user_id: string
+  user_context_id?: string
   name?: string
   birth_date?: Date
-  gender?: string
+  gender?: GenderTypes
   password?: string
   email?: string
   phone?: string

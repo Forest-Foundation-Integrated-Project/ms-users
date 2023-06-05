@@ -1,6 +1,6 @@
-import { IsNotEmpty, IsString, IsDate, Matches, isNotEmpty, IsBoolean, IsOptional } from 'class-validator'
+import { IsNotEmpty, IsString, IsDate, Matches, isNotEmpty, IsBoolean, IsOptional, IsIn } from 'class-validator'
 
-import { IUserEntity } from '../../1-domain/entities/userEntity'
+import { GenderTypes, IUserEntity } from '../../1-domain/entities/userEntity'
 import { Either } from '../../4-framework/shared/either'
 import { IError } from '../../4-framework/shared/iError'
 import { Validatable } from './abstractValidatable'
@@ -15,8 +15,8 @@ export class InputCreateUser extends Validatable<InputCreateUser> {
   birth_date!: Date
 
   @IsNotEmpty()
-  @IsString()
-  gender!: string
+  @IsIn(Object.values(GenderTypes))
+  gender!: GenderTypes
 
   @IsNotEmpty()
   @IsString()

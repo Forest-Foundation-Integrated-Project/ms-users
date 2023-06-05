@@ -14,11 +14,14 @@ export const handler = httpHandler(async (event: APIGatewayProxyEvent, context: 
   const path = event.pathParameters
   const body = JSON.parse(event?.body as string)
   const { birth_date } = body
-
   const payload = {
     ...body,
-    ...(birth_date && {birth_date: new Date(birth_date)}),
+    ...(birth_date && { birth_date: new Date(birth_date) }),
+    ...(event?.requestContext?.authorizer?.userId && {
+      user_context_id: event.requestContext.authorizer.userId
+    }),
     user_id: path?.user_id
+
   }
 
   const input = new InputUpdateUser(payload)
