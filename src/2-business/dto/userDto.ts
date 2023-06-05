@@ -23,6 +23,7 @@ export interface InputViewUserDto {
 
 export interface InputRemoveUserDto {
   user_id: string
+  user_context_id?: string
 }
 
 export interface InputUpdateUserDto {

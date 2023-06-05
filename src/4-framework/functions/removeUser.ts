@@ -13,7 +13,11 @@ export const handler = httpHandler(async (event: APIGatewayProxyEvent, context: 
   const operator = container.get(RemoveUserOperator)
   const body = event.pathParameters
 
-  const input = new InputRemoveUser(body as Object)
+  const input = new InputRemoveUser({
+    ...body, ...(event?.requestContext?.authorizer?.userId && {
+      user_context_id: event.requestContext.authorizer.userId
+    })
+  })
   const result = await operator.exec(input)
 
   if (result.isLeft()) {
