@@ -10,6 +10,12 @@ provider:
   apiGateway:
     restApiId: 411z282v69
     restApiRootResourceId: 4efcqfttn0
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+      Resource:
+        - "*"
   environment:
     DB_HOST: ${env:DB_HOST, ssm:/ifsp/infra/EC2-PS/host}
     DB_PORT: ${env:DB_PORT, ssm:/ifsp/infra/EC2-PS/port}
