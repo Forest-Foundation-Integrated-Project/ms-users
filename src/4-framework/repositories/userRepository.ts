@@ -6,7 +6,7 @@ import { InputUpdateUserDto } from '../../2-business/dto/userDto'
 
 @injectable()
 export class UserRepository implements IUserRepository {
-  public constructor(@inject(UserModel) private userModel: typeof UserModel) {}
+  public constructor(@inject(UserModel) private userModel: typeof UserModel) { }
 
   async create(userEntity: IUserEntity): Promise<IUserEntity> {
     const createResponse = await this.userModel.create({
@@ -39,19 +39,27 @@ export class UserRepository implements IUserRepository {
   }
 
   async remove(remove_id: string): Promise<boolean> {
-      const removeResponse = await this.userModel.update(
-        {active: false},
-        {where: {user_id: remove_id}
+    const removeResponse = await this.userModel.update(
+      { active: false },
+      {
+        where: { user_id: remove_id }
       });
 
-      return !!removeResponse[0]
+    return !!removeResponse[0]
+  }
+
+  async delete(user_id: string): Promise<boolean> {
+    const removeResponse = await this.userModel.destroy({ where: { user_id } });
+
+    return !!removeResponse
   }
 
   async update(userEntity: InputUpdateUserDto): Promise<IUserEntity> {
     console.log("UserEntity: ", userEntity)
 
     await this.userModel.update(
-      { name: userEntity.name,
+      {
+        name: userEntity.name,
         birth_date: userEntity.birth_date,
         gender: userEntity.gender,
         password: userEntity.password,
@@ -62,16 +70,17 @@ export class UserRepository implements IUserRepository {
         user_bio: userEntity.user_bio,
         contact_info: userEntity.contact_info,
         role: userEntity.role,
-        active: userEntity.active},
+        active: userEntity.active
+      },
       {
-      where: {
-        user_id: userEntity.user_id
-      }
-    }).then(response => {
-      console.log("Response: ", response)
-    }).catch(error => {
-      console.log("Error: ", error)
-    })
+        where: {
+          user_id: userEntity.user_id
+        }
+      }).then(response => {
+        console.log("Response: ", response)
+      }).catch(error => {
+        console.log("Error: ", error)
+      })
 
     const updateResponse = await this.userModel.findByPk(userEntity.user_id)
 

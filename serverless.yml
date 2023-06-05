@@ -16,9 +16,13 @@ provider:
     DB_NAME: ${env:DB_NAME, ssm:/ifsp/infra/EC2-PS/dbname}
     DB_USER: ${env:DB_USER, ssm:/ifsp/infra/EC2-PS/username}
     DB_PASSWORD: ${env:DB_PASSWORD, ssm:/ifsp/infra/EC2-PS/password}
+    REGION: ${self:provider.region}
+    CREATE_IDENTITY: ${env:CREATE_IDENTITY, ssm:/alumnus/invoke/createIdentity}
 
 custom:
   esbuild:
+    bundle: true
+    minify: false
     external:
       - pg-native
   serviceName: users
@@ -54,6 +58,7 @@ functions:
       - http:
           path: ${self:custom.baseApi}/{user_id}
           method: delete
+          authorizer: ${self:custom.ms-account-authorizer}
           cors:
             origin: '*'
             headers: '*'
@@ -63,6 +68,7 @@ functions:
       - http:
           path: ${self:custom.baseApi}/{user_id}
           method: put
+          authorizer: ${self:custom.ms-account-authorizer}
           cors:
             origin: '*'
             headers: '*'

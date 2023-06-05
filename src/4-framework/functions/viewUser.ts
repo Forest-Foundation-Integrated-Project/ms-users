@@ -13,6 +13,7 @@ export const handler = httpHandler(async (event: APIGatewayProxyEvent, context: 
   const operator = container.get(ViewUserOperator)
   const body = event.pathParameters
   console.log('body => ', body)
+  console.log('context => ', context)
   const input = new InputViewUser(body as Object)
   const result = await operator.exec(input)
 

@@ -1,16 +1,20 @@
 import { injectable, inject } from 'inversify'
 
 import { UserEntity } from '../../1-domain/entities/userEntity'
+import { HandlePassword } from './handler/handlerPassword'
 import { InputCreateUserDto, OutputCreateUserDto } from '../dto/userDto'
 import { IUserRepository, IUserRepositoryToken } from '../repositories/iUserRepository'
+import { IIdentityService, IIdentityServiceToken } from '../services/iIdentityService'
 import { UserCreationFailed } from '../module/errors/users'
 import { left, right } from '../../4-framework/shared/either'
-import { HandlePassword } from './handler/handlerPassword'
 import { IUseCase } from './iUseCase'
 
 @injectable()
 export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCreateUserDto> {
-  public constructor(@inject(IUserRepositoryToken) private userRepository: IUserRepository) {}
+  public constructor(
+    @inject(IUserRepositoryToken) private userRepository: IUserRepository,
+    @inject(IIdentityServiceToken) private identityService: IIdentityService,
+  ) { }
 
   async exec(input: InputCreateUserDto): Promise<OutputCreateUserDto> {
     try {
@@ -36,10 +40,25 @@ export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCre
         return left(UserCreationFailed)
       }
 
-      const user = await this.userRepository.create(userResult.value.export())
-      console.log('create::user => ', user)
+      const userCreation = await this.userRepository.create(userResult.value.export())
 
-      return right(user)
+      if (userCreation?.user_id) {
+        const createUserIdentity = await this.identityService.createUserIdentity({
+          email: userCreation.email,
+          name: userCreation.name,
+          password: hashedPassword,
+          user_id: userCreation.user_id
+        })
+        console.log('createUserIdentity => ', createUserIdentity)
+
+        if (createUserIdentity.isLeft() || !createUserIdentity.value.enabled) {
+          await this.userRepository.delete(userCreation.user_id)
+          throw Error()
+        }
+
+      }
+
+      return right(userCreation)
     } catch (error) {
       console.log('create::error => ', error)
       return left(UserCreationFailed)

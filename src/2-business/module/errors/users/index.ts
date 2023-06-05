@@ -27,3 +27,10 @@ export const UserNotFound = {
   message: 'User not found',
   shortMessage: 'userNotFound'
 }
+
+export const CreationUserIdentityServiceFail = (details: Object) => ({
+  code: 'USC-005',
+  message: 'Creation user identity service fail',
+  shortMessage: 'CreationUserIdentityServiceFail',
+  details
+})
