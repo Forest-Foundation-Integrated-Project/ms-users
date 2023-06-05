@@ -12,6 +12,14 @@ export const handler = httpHandler(async (event: APIGatewayProxyEvent, context: 
   context.callbackWaitsForEmptyEventLoop = false
   const operator = container.get(ViewUserOperator)
   const body = event.pathParameters
+  console.log('event => ', event)
+  console.log('event => ', event.requestContext)
+
+  if (event?.requestContext?.authorizer) {
+    const authorizerData = event.requestContext.authorizer;
+    console.log('Dados do authorizer:', authorizerData);
+  }
+
   console.log('body => ', body)
   console.log('context => ', context)
   const input = new InputViewUser(body as Object)
