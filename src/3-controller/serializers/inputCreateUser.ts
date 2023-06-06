@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsDate, Matches, isNotEmpty, IsBoolean, IsOptional, IsIn } from 'class-validator'
+import { IsNotEmpty, IsString, IsDate, IsBoolean, IsOptional, IsIn } from 'class-validator'
 
 import { GenderTypes, IUserEntity } from '../../1-domain/entities/userEntity'
 import { Either } from '../../4-framework/shared/either'
