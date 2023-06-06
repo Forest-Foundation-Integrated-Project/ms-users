@@ -1,4 +1,5 @@
 import { injectable, inject } from 'inversify'
+import { Lambda } from 'aws-sdk'
 
 import { UserEntity } from '../../1-domain/entities/userEntity'
 import { HandlePassword } from './handler/handlerPassword'
@@ -8,9 +9,12 @@ import { IIdentityService, IIdentityServiceToken } from '../services/iIdentitySe
 import { UserCreationFailed } from '../module/errors/users'
 import { left, right } from '../../4-framework/shared/either'
 import { IUseCase } from './iUseCase'
+import { createToken } from './handler/createToken'
 
 @injectable()
 export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCreateUserDto> {
+  sendEmail = new Lambda
+
   public constructor(
     @inject(IUserRepositoryToken) private userRepository: IUserRepository,
     @inject(IIdentityServiceToken) private identityService: IIdentityService,
@@ -57,6 +61,19 @@ export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCre
         }
 
       }
+
+      const emailResponse = await this.sendEmail.invoke({
+        FunctionName: 'ms-emails-dev-sendMail',
+        InvocationType: 'RequestResponse',
+        LogType: 'None',
+        Payload: JSON.stringify({
+          targetEmail: input.email,
+          emailType: "confirmEmail",
+          token: createToken()
+        })
+      }).promise()
+
+      console.log('email::response => ', emailResponse)
 
       return right(userCreation)
     } catch (error) {
