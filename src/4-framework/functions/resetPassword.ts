@@ -16,6 +16,9 @@ export const handler = httpHandler(async (event: APIGatewayProxyEvent, context: 
 
   const payload = {
     ...body,
+    ...(event?.requestContext?.authorizer?.userId && {
+      user_context_id: event.requestContext.authorizer.userId
+    }),
     user_id: path?.user_id
   }
 
