@@ -19,9 +19,7 @@ export const handler = httpHandler(async (event: APIGatewayProxyEvent, context: 
     ...(birth_date && { birth_date: new Date(birth_date) }),
     ...(event?.requestContext?.authorizer?.userId && {
       user_context_id: event.requestContext.authorizer.userId
-    }),
-    user_id: path?.user_id
-
+    })
   }
 
   const input = new InputUpdateUser(payload)
