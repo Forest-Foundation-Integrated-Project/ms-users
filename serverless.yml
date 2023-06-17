@@ -78,13 +78,21 @@ functions:
           cors:
             origin: '*'
             headers: '*'
+  sendMailResetPassword:
+    handler: ${self:custom.funcDir}/sendMailResetPassword.handler
+    events:
+      - http:
+          path: ${self:custom.baseApi}/send-mail-reset-password
+          method: put
+          cors:
+            origin: '*'
+            headers: '*'
   resetPassword:
     handler: ${self:custom.funcDir}/resetPassword.handler
     events:
       - http:
-          path: ${self:custom.baseApi}/{user_id}/reset-password
+          path: ${self:custom.baseApi}/reset-password
           method: put
-          authorizer: ${self:custom.ms-account-authorizer}
           cors:
             origin: '*'
             headers: '*'

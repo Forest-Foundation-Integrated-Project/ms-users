@@ -2,7 +2,7 @@ import { injectable, inject } from 'inversify'
 import { IUserRepository } from '../../2-business/repositories/iUserRepository'
 import { IUserEntity } from '../../1-domain/entities/userEntity'
 import { UserModel } from '../models/userModel'
-import { InputUpdateUserDto } from '../../2-business/dto/userDto'
+import { InputResetPasswordDto, InputUpdateUserDto } from '../../2-business/dto/userDto'
 
 @injectable()
 export class UserRepository implements IUserRepository {
@@ -87,5 +87,15 @@ export class UserRepository implements IUserRepository {
     delete updateResponse?.dataValues.password
 
     return updateResponse?.dataValues
+  }
+
+  async resetPassword(userDto: InputResetPasswordDto): Promise<boolean> {
+    await this.userModel.update(
+      {password: userDto.password},
+      {where: {email: userDto.email}})
+
+    const resetPasswordResponse = await this.userModel.findOne({where: {email: userDto.email}})
+
+    return !!resetPasswordResponse
   }
 }
