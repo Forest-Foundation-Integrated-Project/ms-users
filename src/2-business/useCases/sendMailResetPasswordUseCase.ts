@@ -22,7 +22,7 @@ export class SendMailResetPasswordUseCase implements IUseCase<InputSendMailReset
         LogType: 'None',
         Payload: JSON.stringify({
           targetEmail: input.email,
-          emailType: "sendMailResetPassword",
+          emailType: "resetPassword",
           token: createToken()
         })
       }).promise()
