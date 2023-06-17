@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsDate, IsBoolean, IsOptional, IsUUID, IsIn } from 'class-validator'
+import { IsNotEmpty, IsString, IsDate, IsBoolean, IsOptional, IsUUID, IsIn, IsEmail } from 'class-validator'
 
 import { GenderTypes, IUserEntity } from '../../1-domain/entities/userEntity'
 import { Either } from '../../4-framework/shared/either'
@@ -31,7 +31,7 @@ export class InputUpdateUser extends Validatable<InputUpdateUser> {
   password?: string
 
   @IsOptional()
-  @IsString()
+  @IsEmail()
   email?: string
 
   @IsOptional()
