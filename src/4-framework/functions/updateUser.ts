@@ -11,7 +11,6 @@ import { InputUpdateUser } from '../../3-controller/serializers/inputUpdateUser'
 export const handler = httpHandler(async (event: APIGatewayProxyEvent, context: Context) => {
   context.callbackWaitsForEmptyEventLoop = false
   const operator = container.get(UpdateUserOperator)
-  const path = event.pathParameters
   const body = JSON.parse(event?.body as string)
   const { birth_date } = body
   const payload = {
