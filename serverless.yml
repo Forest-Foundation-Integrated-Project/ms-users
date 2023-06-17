@@ -43,7 +43,7 @@ functions:
     handler: ${self:custom.funcDir}/createUser.handler
     events:
       - http:
-          path: ${self:custom.baseApi}/
+          path: ${self:custom.baseApi}
           method: post
           cors:
             origin: '*'
@@ -72,7 +72,7 @@ functions:
     handler: ${self:custom.funcDir}/updateUser.handler
     events:
       - http:
-          path: ${self:custom.baseApi}/{user_id}
+          path: ${self:custom.baseApi}
           method: put
           authorizer: ${self:custom.ms-account-authorizer}
           cors:
