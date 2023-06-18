@@ -38,10 +38,10 @@ export class SendMailResetPasswordUseCase implements IUseCase<InputSendMailReset
       }).promise()
 
       console.log('email::response => ', emailResponse)
-      const passwordResponseString = JSON.parse(emailResponse.Payload as string)
-      const passwordResponse = JSON.parse(passwordResponseString.body)
+      const payloadResponseString = JSON.parse(emailResponse.Payload as string)
+      const payloadResponse = JSON.parse(payloadResponseString.body)
 
-      return right(passwordResponse)
+      return right(payloadResponse)
     } catch (error) {
       return left(UserUpdateFailed)
     }
