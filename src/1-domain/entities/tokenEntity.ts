@@ -8,7 +8,7 @@ export interface ITokenEntity {
   token: string
   operationType: OperationTypes
   email: string
-  expirationDate: number
+  expirationDate?: number
   createdAt?: Date
   updatedAt?: Date
 }
