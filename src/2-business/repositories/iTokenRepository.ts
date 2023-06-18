@@ -4,4 +4,5 @@ export const ITokenRepositoryToken = Symbol.for('ITokenRepository')
 
 export interface ITokenRepository {
   create(tokenEntity: ITokenEntity): Promise<ITokenEntity>
+  find(tokenEntity: ITokenEntity): Promise<ITokenEntity>
 }
