@@ -97,6 +97,15 @@ functions:
           cors:
             origin: '*'
             headers: '*'
+  confirmToken:
+    handler: ${self:custom.funcDir}/confirmToken.handler
+    events:
+      - http:
+          path: ${self:custom.baseApi}/confirm-token
+          method: put
+          cors:
+            origin: '*'
+            headers: '*'
   resetPassword:
     handler: ${self:custom.funcDir}/resetPassword.handler
     events:
