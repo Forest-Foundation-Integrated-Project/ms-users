@@ -13,9 +13,7 @@ export const handler = httpHandler(async (event: APIGatewayProxyEvent, context: 
   const operator = container.get(SendMailResetPasswordOperator)
   const body = JSON.parse(event?.body as string)
 
-  console.log('body::', body)
   const input = new InputSendMailResetPassword(body)
-  console.log('email::', input.email)
   const result = await operator.exec(input)
 
   if (result.isLeft()) {
