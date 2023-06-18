@@ -10,6 +10,7 @@ export interface IUserRepository {
   delete(user_id: string): Promise<boolean>
   update(userEntity: InputUpdateUserDto): Promise<IUserEntity>
   resetPassword(userDto: InputResetPasswordDto): Promise<boolean>
+  getByEmail(email: string): Promise<IUserEntity>
 }
 
 // Uma possível melhoria a este código seria a criação de outra interface para o método update, ao invés da userEntity.
