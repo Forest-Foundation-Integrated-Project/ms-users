@@ -6,24 +6,50 @@ import { HandlePassword } from './handler/handlerPassword'
 import { IUseCase } from './iUseCase'
 import { UserNotFound, UserUpdateFailed } from '../module/errors/users'
 import { InputResetPasswordDto, OutputResetPasswordDto } from '../dto/userDto'
+import { ITokenRepository, ITokenRepositoryToken } from '../repositories/iTokenRepository'
+import { OperationTypes } from '../../1-domain/entities/tokenEntity'
+import { TokenNotFound, TokenValidationFailed } from '../module/errors/tokens'
 
 @injectable()
 export class ResetPasswordUseCase implements IUseCase<InputResetPasswordDto, OutputResetPasswordDto> {
-  public constructor(@inject(IUserRepositoryToken) private userRepository: IUserRepository) {}
+  public constructor(
+    @inject(IUserRepositoryToken) private userRepository: IUserRepository,
+    @inject(ITokenRepositoryToken) private tokenRepository: ITokenRepository
+  ) { }
 
   async exec(input: InputResetPasswordDto): Promise<OutputResetPasswordDto> {
     try {
-      const handlePassword = new HandlePassword()
-
-      const user = await this.userRepository.resetPassword({
-        email: input.email,
-        password: handlePassword.hashPassword(input.password),
-        confirmToken: input.confirmToken
+      const tokenResult = await this.tokenRepository.find({
+        token: input.confirmToken,
+        operationType: OperationTypes.resetPassword,
+        email: input.email
       })
 
-      if (!user) return left (UserNotFound)
+      if (!tokenResult) return left(TokenNotFound)
 
-      return right(!!user)
+      console.log('token::result => ', tokenResult)
+
+      const validToken = (
+        tokenResult.email == input.email &&
+        tokenResult.operationType == OperationTypes.resetPassword &&
+        new Date(tokenResult.expirationDate!).getTime() >= Date.now()
+      )
+
+      if (validToken) {
+        const handlePassword = new HandlePassword()
+
+        const user = await this.userRepository.resetPassword({
+          email: input.email,
+          password: handlePassword.hashPassword(input.password),
+          confirmToken: input.confirmToken
+        })
+
+        if (!user) return left(UserNotFound)
+
+        return right(!!user)
+      }
+
+      return left(TokenValidationFailed)
     } catch (error) {
       return left(UserUpdateFailed)
     }
