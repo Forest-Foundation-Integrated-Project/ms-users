@@ -1,4 +1,4 @@
-import { IsAlphanumeric, IsEmail, IsNotEmpty, IsString, Length } from 'class-validator'
+import { IsAlphanumeric, IsEmail, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator'
 
 import { Either } from '../../4-framework/shared/either'
 import { IError } from '../../4-framework/shared/iError'
@@ -16,7 +16,8 @@ export class InputResetPassword extends Validatable<InputResetPassword> {
   @IsNotEmpty()
   @IsString()
   @IsAlphanumeric()
-  @Length(6)
+  @MinLength(6)
+  @MaxLength(6)
   confirmToken!: string
 }
 
