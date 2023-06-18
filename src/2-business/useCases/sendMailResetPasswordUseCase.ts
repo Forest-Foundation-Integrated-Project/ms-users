@@ -1,7 +1,6 @@
-import { injectable, inject } from 'inversify'
+import { injectable } from 'inversify'
 import { Lambda } from 'aws-sdk'
 
-import { IUserRepository, IUserRepositoryToken } from '../repositories/iUserRepository'
 import { left, right } from '../../4-framework/shared/either'
 import { IUseCase } from './iUseCase'
 import { UserUpdateFailed } from '../module/errors/users'
@@ -11,8 +10,6 @@ import { createToken } from './handler/createToken'
 @injectable()
 export class SendMailResetPasswordUseCase implements IUseCase<InputSendMailResetPasswordDto, OutputSendMailResetPasswordDto> {
   sendEmail = new Lambda
-
-  public constructor(@inject(IUserRepositoryToken) private userRepository: IUserRepository) {}
 
   async exec(input: InputSendMailResetPasswordDto): Promise<OutputSendMailResetPasswordDto> {
     try {
