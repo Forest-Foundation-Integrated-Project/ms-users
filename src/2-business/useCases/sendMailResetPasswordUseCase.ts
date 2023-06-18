@@ -24,6 +24,8 @@ export class SendMailResetPasswordUseCase implements IUseCase<InputSendMailReset
         expirationDate: Date.now() + 300000
       })
 
+      console.log('token::result => ', tokenResult)
+
       const emailResponse = await this.sendEmail.invoke({
         FunctionName: 'ms-emails-dev-sendMail',
         InvocationType: 'RequestResponse',
@@ -31,7 +33,7 @@ export class SendMailResetPasswordUseCase implements IUseCase<InputSendMailReset
         Payload: JSON.stringify({
           targetEmail: input.email,
           emailType: "resetPassword",
-          token: createToken()
+          token: tokenResult.token
         })
       }).promise()
 
