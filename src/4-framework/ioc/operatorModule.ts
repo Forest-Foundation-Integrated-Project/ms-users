@@ -6,6 +6,7 @@ import { UpdateUserOperator } from '../../3-controller/operators/updateUserOpera
 import { ViewUserOperator } from '../../3-controller/operators/viewUserOperator'
 import { ResetPasswordOperator } from '../../3-controller/operators/resetPasswordOperator'
 import { SendMailResetPasswordOperator } from '../../3-controller/operators/sendMailResetPasswordOperator'
+import { ConfirmTokenOperator } from '../../3-controller/operators/confirmTokenOperator'
 
 export const OperatorModule = new ContainerModule((bind: interfaces.Bind) => {
   bind(CreateUserOperator).toSelf()
@@ -13,5 +14,6 @@ export const OperatorModule = new ContainerModule((bind: interfaces.Bind) => {
   bind(RemoveUserOperator).toSelf()
   bind(UpdateUserOperator).toSelf()
   bind(SendMailResetPasswordOperator).toSelf()
+  bind(ConfirmTokenOperator).toSelf()
   bind(ResetPasswordOperator).toSelf()
 })

@@ -38,6 +38,14 @@ export class UserRepository implements IUserRepository {
     return viewResponse?.dataValues
   }
 
+  async getByEmail(email: string): Promise<IUserEntity> {
+    const viewResponse = await this.userModel.findOne({where: {email}})
+
+    delete viewResponse?.dataValues.password
+
+    return viewResponse?.dataValues
+  }
+
   async remove(remove_id: string): Promise<boolean> {
     const removeResponse = await this.userModel.update(
       { active: false },

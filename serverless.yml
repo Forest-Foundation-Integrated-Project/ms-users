@@ -16,6 +16,16 @@ provider:
         - lambda:InvokeFunction
       Resource:
         - "*"
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:CreateTable
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: 'arn:aws:dynamodb:${aws:region}:${aws:accountId}:*'
   environment:
     DB_HOST: ${env:DB_HOST, ssm:/ifsp/infra/EC2-PS/host}
     DB_PORT: ${env:DB_PORT, ssm:/ifsp/infra/EC2-PS/port}
@@ -83,6 +93,15 @@ functions:
     events:
       - http:
           path: ${self:custom.baseApi}/send-mail-reset-password
+          method: put
+          cors:
+            origin: '*'
+            headers: '*'
+  confirmToken:
+    handler: ${self:custom.funcDir}/confirmToken.handler
+    events:
+      - http:
+          path: ${self:custom.baseApi}/confirm-token
           method: put
           cors:
             origin: '*'

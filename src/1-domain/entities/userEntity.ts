@@ -1,4 +1,3 @@
-// import { v4 as uuid } from 'uuid'
 import { randomUUID } from 'crypto'
 
 import { Either, right } from '../../4-framework/shared/either'

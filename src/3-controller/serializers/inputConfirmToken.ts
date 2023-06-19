@@ -3,12 +3,9 @@ import { IsAlphanumeric, IsEmail, IsNotEmpty, IsString, MaxLength, MinLength } f
 import { Either } from '../../4-framework/shared/either'
 import { IError } from '../../4-framework/shared/iError'
 import { Validatable } from './abstractValidatable'
+import { ITokenEntity } from '../../1-domain/entities/tokenEntity'
 
-export class InputResetPassword extends Validatable<InputResetPassword> {
-  @IsNotEmpty()
-  @IsString()
-  password!: string
-
+export class InputConfirmToken extends Validatable<InputConfirmToken> {
   @IsNotEmpty()
   @IsEmail()
   email!: string
@@ -18,7 +15,7 @@ export class InputResetPassword extends Validatable<InputResetPassword> {
   @IsAlphanumeric()
   @MinLength(6)
   @MaxLength(6)
-  confirmToken!: string
+  token!: string
 }
 
-export type OutputResetPassword = Either<IError, boolean>
+export type OutputConfirmToken = Either<IError, ITokenEntity>
