@@ -40,3 +40,9 @@ export const UserIdentityCannotBeValidated = {
   message: "Suspicious activity, user identity cannot be validated.",
   shortMessage: 'UserIdentityCannotBeValidated.'
 }
+
+export const ImageUploadFailed = {
+  code: 'IUF-001',
+  message: 'Image upload failed',
+  shortMessage: 'imageUploadFailed'
+}
