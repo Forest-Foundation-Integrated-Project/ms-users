@@ -16,13 +16,28 @@ export class StorageService implements IStorageService {
   }
 
   async upload(input: InputUpdateUserDto): Promise<Either<IError, string>> {
-    console.log('profile::image => ', input.profileImage)
+    console.log('profile::image::charAt(0) => ', input.profileImage?.charAt(0))
 
-    const imageName = `${input.user_id}-image`
+    let imageExtension
+    switch (input.profileImage?.charAt(0)) {
+      case '/':
+        imageExtension = '.jpg';
+        break;
+      case 'i':
+        imageExtension = '.png';
+        break;
+      case 'U':
+        imageExtension = '.webp';
+        break;
+      default:
+        console.log('Image extension is not supported.')
+    }
+
+    const imageName = `${input.user_id}-image${imageExtension}`
     const params = {
       Bucket: 'users-images-devi',
       Key: imageName,
-      Body: input.profileImage
+      Body: Buffer.from(input.profileImage, "base64")
     }
 
     try {
