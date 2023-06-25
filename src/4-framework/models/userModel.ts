@@ -42,6 +42,11 @@ UserModel.init(
       type: DataTypes.STRING,
       unique: true,
     },
+    profileImage: {
+      allowNull: true,
+      type: DataTypes.STRING,
+      unique: true,
+    },
     city: {
       type: DataTypes.STRING,
       allowNull: false,
