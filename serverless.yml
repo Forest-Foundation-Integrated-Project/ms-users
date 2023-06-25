@@ -26,6 +26,14 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource: 'arn:aws:dynamodb:${aws:region}:${aws:accountId}:*'
+    - Effect: Allow
+      Action:
+        - s3:DeleteObject
+        - s3:GetObject
+        - s3:ListBucket
+        - s3:PutObject
+        - s3:PutObjectAcl
+      Resource: 'arn:aws:s3:::users-images-devi'
   environment:
     DB_HOST: ${env:DB_HOST, ssm:/ifsp/infra/EC2-PS/host}
     DB_PORT: ${env:DB_PORT, ssm:/ifsp/infra/EC2-PS/port}
