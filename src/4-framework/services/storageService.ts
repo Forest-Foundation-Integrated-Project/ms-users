@@ -1,9 +1,8 @@
 import { injectable } from "inversify";
 import { IStorageService } from "../../2-business/services/iStorageService";
 import { S3 } from 'aws-sdk';
-import { IUserEntity } from "../../1-domain/entities/userEntity";
 import { Either, left, right } from "../shared/either";
-import { ImageUploadFailed } from "../../2-business/module/errors/users";
+import { FileExtensionIsNotSupported, ImageUploadFailed } from "../../2-business/module/errors/users";
 import { IError } from "../shared/iError";
 import { InputUpdateUserDto } from "../../2-business/dto/userDto";
 
@@ -30,7 +29,7 @@ export class StorageService implements IStorageService {
         imageExtension = '.webp';
         break;
       default:
-        console.log('Image extension is not supported.')
+        return left(FileExtensionIsNotSupported)
     }
 
     const imageName = `${input.user_id}-image${imageExtension}`

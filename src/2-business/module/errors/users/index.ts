@@ -43,6 +43,12 @@ export const UserIdentityCannotBeValidated = {
 
 export const ImageUploadFailed = {
   code: 'IUF-001',
-  message: 'Image upload failed',
+  message: 'Image upload failed.',
   shortMessage: 'imageUploadFailed'
+}
+
+export const FileExtensionIsNotSupported = {
+  code: 'IUF-002',
+  message: 'Image file extension is not supported.',
+  shortMessage: 'fileExtensionIsNotSupported'
 }
