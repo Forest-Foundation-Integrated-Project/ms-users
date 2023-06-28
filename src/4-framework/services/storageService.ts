@@ -25,9 +25,6 @@ export class StorageService implements IStorageService {
       case 'i':
         imageExtension = '.png';
         break;
-      case 'U':
-        imageExtension = '.webp';
-        break;
       default:
         return left(FileExtensionIsNotSupported)
     }
