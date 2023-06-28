@@ -15,10 +15,10 @@ export class StorageService implements IStorageService {
   }
 
   async upload(input: InputUpdateUserDto): Promise<Either<IError, string>> {
-    console.log('profile::image::charAt(0) => ', input.profileImage?.charAt(0))
+    console.log('profile::image::charAt(0) => ', input.profile_image?.charAt(0))
 
     let imageExtension
-    switch (input.profileImage?.charAt(0)) {
+    switch (input.profile_image?.charAt(0)) {
       case '/':
         imageExtension = '.jpg';
         break;
@@ -36,7 +36,7 @@ export class StorageService implements IStorageService {
     const params = {
       Bucket: 'users-images-devi',
       Key: imageName,
-      Body: Buffer.from(input.profileImage, "base64")
+      Body: Buffer.from(input.profile_image, "base64")
     }
 
     try {

@@ -42,7 +42,7 @@ UserModel.init(
       type: DataTypes.STRING,
       unique: true,
     },
-    profileImage: {
+    profile_image: {
       allowNull: true,
       type: DataTypes.STRING,
       unique: true,

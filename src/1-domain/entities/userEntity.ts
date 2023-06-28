@@ -18,7 +18,7 @@ export interface IUserEntity {
   password?: string
   email: string
   phone?: string
-  profileImage?: string
+  profile_image?: string
   city: string
   university: string
   user_bio?: string
