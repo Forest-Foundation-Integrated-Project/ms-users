@@ -13,9 +13,17 @@ export const handler = httpHandler(async (event: APIGatewayProxyEvent, context: 
   const operator = container.get(UpdateUserOperator)
   const body = JSON.parse(event?.body as string)
   const { birth_date } = body
+  let processedImage
+  if (body.profileImage.includes(',')) {
+    processedImage = body.profileImage.split(',')[1]
+  } else {
+    processedImage = body.profileImage
+  }
+
   const payload = {
     ...body,
     ...(birth_date && { birth_date: new Date(birth_date) }),
+    profileImage: processedImage,
     ...(event?.requestContext?.authorizer?.userId && {
       user_context_id: event.requestContext.authorizer.userId
     })
