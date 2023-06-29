@@ -24,7 +24,7 @@ export class UpdateUserUseCase implements IUseCase<InputUpdateUserDto, OutputUpd
       }
 
       let userImage
-      if (!!input.profile_image) {
+      if (!!input.profileImage) {
         const imageUploadResult = await this.storageService.upload(input)
         console.log('image::upload::result => ', imageUploadResult)
 
@@ -42,7 +42,7 @@ export class UpdateUserUseCase implements IUseCase<InputUpdateUserDto, OutputUpd
         ...(input.password && { password: handlePassword.hashPassword(input.password) }),
         email: input.email,
         phone: input.phone,
-        profile_image: userImage,
+        profileImage: userImage,
         city: input.city,
         university: input.university,
         user_bio: input.user_bio,

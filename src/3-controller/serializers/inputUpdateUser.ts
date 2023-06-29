@@ -40,7 +40,7 @@ export class InputUpdateUser extends Validatable<InputUpdateUser> {
 
   @IsOptional()
   @IsBase64()
-  profile_image?: string
+  profileImage?: string
 
   @IsOptional()
   @IsString()

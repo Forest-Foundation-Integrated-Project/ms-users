@@ -73,7 +73,7 @@ export class UserRepository implements IUserRepository {
         password: userEntity.password,
         email: userEntity.email,
         phone: userEntity.phone,
-        profile_image: userEntity.profile_image,
+        profileImage: userEntity.profileImage,
         city: userEntity.city,
         university: userEntity.university,
         user_bio: userEntity.user_bio,
