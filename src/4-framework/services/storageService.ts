@@ -31,7 +31,7 @@ export class StorageService implements IStorageService {
 
     const imageName = `${input.user_id}-image${imageExtension}`
     const params = {
-      Bucket: 'users-images-devi',
+      Bucket: `${process.env.IMAGES_BUCKET_NAME}`,
       Key: imageName,
       Body: Buffer.from(input.profileImage, "base64")
     }
