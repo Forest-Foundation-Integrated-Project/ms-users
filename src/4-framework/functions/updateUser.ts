@@ -14,10 +14,13 @@ export const handler = httpHandler(async (event: APIGatewayProxyEvent, context: 
   const body = JSON.parse(event?.body as string)
   const { birth_date } = body
   let processedImage
-  if (body.profileImage.includes(',')) {
-    processedImage = body.profileImage.split(',')[1]
-  } else {
-    processedImage = body.profileImage
+
+  if (body.profileImage) {
+    if (body.profileImage.includes(',')) {
+      processedImage = body.profileImage.split(',')[1]
+    } else {
+      processedImage = body.profileImage
+    }
   }
 
   const payload = {
