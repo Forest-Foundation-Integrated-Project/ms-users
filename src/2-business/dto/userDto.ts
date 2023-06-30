@@ -1,4 +1,4 @@
-import { ITokenEntity } from "../../1-domain/entities/tokenEntity"
+import { ITokenReturn, OperationTypes } from "../../1-domain/entities/tokenEntity"
 import { GenderTypes, IUserEntity } from "../../1-domain/entities/userEntity"
 import { Either } from "../../4-framework/shared/either"
 import { IError } from "../../4-framework/shared/iError"
@@ -53,6 +53,7 @@ export interface InputResetPasswordDto {
 
 export interface InputConfirmTokenDto {
   email: string
+  operationType: OperationTypes
   token: string
 }
 
@@ -65,5 +66,5 @@ export type OutputViewUserDto = Either<IError, IUserEntity>
 export type OutputRemoveUserDto = Either<IError, boolean>
 export type OutputUpdateUserDto = Either<IError, IUserEntity>
 export type OutputResetPasswordDto = Either<IError, boolean>
-export type OutputConfirmTokenDto = Either<IError, ITokenEntity>
+export type OutputConfirmTokenDto = Either<IError, ITokenReturn>
 export type OutputSendMailResetPasswordDto = Either<IError, boolean>

@@ -16,31 +16,45 @@ export class ConfirmTokenUseCase implements IUseCase<InputConfirmTokenDto, Outpu
     try {
       const tokenResult = await this.tokenRepository.find({
         token: input.token,
-        operationType: OperationTypes.sendMailResetPassword,
+        operationType: input.operationType,
         email: input.email
       })
 
       if (!tokenResult) return left (TokenNotFound)
-
       console.log('token::result => ', tokenResult)
 
-      const validToken = (
-        tokenResult.email == input.email &&
-        tokenResult.operationType == OperationTypes.sendMailResetPassword &&
-        new Date(tokenResult.expirationDate!).getTime() >= Date.now()
-      )
+      const validToken = (new Date(tokenResult.expirationDate!).getTime() >= Date.now())
 
       if (validToken) {
-        const newTokenResult = await this.tokenRepository.create({
-          token: createToken(),
-          operationType: OperationTypes.resetPassword,
-          email: input.email,
-          expirationDate: Date.now() + 300000
-        })
+        switch(tokenResult.operationType) {
+          case OperationTypes.sendMailResetPassword:
+            console.log('operation::type => ', OperationTypes.sendMailResetPassword)
 
-        console.log('new::token::result => ', newTokenResult)
+            const resetPasswordToken = createToken()
+            const newTokenResult = await this.tokenRepository.create({
+              token: resetPasswordToken,
+              operationType: OperationTypes.resetPassword,
+              email: input.email,
+              expirationDate: Date.now() + 300000
+            })
 
-        return right(newTokenResult)
+            console.log('new::token::result => ', newTokenResult)
+
+            const sendMailResetPasswordTokenReturn = {
+              token: resetPasswordToken,
+              validInput: true
+            }
+
+            return right(sendMailResetPasswordTokenReturn)
+          case OperationTypes.confirmEmail:
+            console.log('operation::type => ', OperationTypes.confirmEmail)
+
+            const confirmEmailTokenReturn = {
+              validInput: true
+            }
+
+            return right(confirmEmailTokenReturn)
+        }
       }
 
       return left(TokenValidationFailed)

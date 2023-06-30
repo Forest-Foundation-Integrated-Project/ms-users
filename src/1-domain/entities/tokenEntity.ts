@@ -12,3 +12,8 @@ export interface ITokenEntity {
   createdAt?: Date
   updatedAt?: Date
 }
+
+export interface ITokenReturn {
+  token?: string
+  validInput: boolean
+}
