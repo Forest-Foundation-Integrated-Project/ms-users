@@ -41,7 +41,7 @@ export class StorageService implements IStorageService {
       const result = await this.s3.upload(params).promise()
       console.log(result)
 
-      return right(`https://products-images-dev.s3.amazonaws.com/${imageName}`)
+      return right(`https://${process.env.IMAGES_BUCKET_NAME}.s3.amazonaws.com/${imageName}`)
     } catch (error) {
       console.log(error)
 
