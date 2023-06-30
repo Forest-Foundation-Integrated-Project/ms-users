@@ -81,7 +81,7 @@ export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCre
       if (emailResponse) {
         const tokenResult = await this.tokenRepository.create({
           token: createToken(),
-          operationType: OperationTypes.sendMailResetPassword,
+          operationType: OperationTypes.confirmEmail,
           email: input.email,
           expirationDate: Date.now() + 300000
         })
