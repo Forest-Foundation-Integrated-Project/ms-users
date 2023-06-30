@@ -33,7 +33,8 @@ export class StorageService implements IStorageService {
     const params = {
       Bucket: `${process.env.IMAGES_BUCKET_NAME}`,
       Key: imageName,
-      Body: Buffer.from(input.profileImage, "base64")
+      Body: Buffer.from(input.profileImage, "base64"),
+      ACL: 'public-read'
     }
 
     try {
