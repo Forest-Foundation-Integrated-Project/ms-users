@@ -107,4 +107,14 @@ export class UserRepository implements IUserRepository {
 
     return !!resetPasswordResponse
   }
+
+  async checkEmail(newEmail: string): Promise<boolean> {
+    await this.userModel.update(
+      {emailCheck: true},
+      {where: {email: newEmail}})
+
+    const checkEmailResponse = await this.userModel.findOne({where: {email: newEmail}})
+
+    return !!checkEmailResponse
+  }
 }

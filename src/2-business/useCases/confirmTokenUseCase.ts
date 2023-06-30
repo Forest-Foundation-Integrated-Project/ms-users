@@ -7,10 +7,14 @@ import { OperationTypes } from '../../1-domain/entities/tokenEntity'
 import { ITokenRepository, ITokenRepositoryToken } from '../repositories/iTokenRepository'
 import { createToken } from './handler/createToken'
 import { TokenConfirmationFailed, TokenNotFound, TokenValidationFailed } from '../module/errors/tokens'
+import { IUserRepository, IUserRepositoryToken } from '../repositories/iUserRepository'
 
 @injectable()
 export class ConfirmTokenUseCase implements IUseCase<InputConfirmTokenDto, OutputConfirmTokenDto> {
-  public constructor(@inject(ITokenRepositoryToken) private tokenRepository: ITokenRepository) {}
+  public constructor(
+    @inject(IUserRepositoryToken) private userRepository: IUserRepository,
+    @inject(ITokenRepositoryToken) private tokenRepository: ITokenRepository
+  ) { }
 
   async exec(input: InputConfirmTokenDto): Promise<OutputConfirmTokenDto> {
     try {
@@ -48,6 +52,8 @@ export class ConfirmTokenUseCase implements IUseCase<InputConfirmTokenDto, Outpu
             return right(sendMailResetPasswordTokenReturn)
           case OperationTypes.confirmEmail:
             console.log('operation::type => ', OperationTypes.confirmEmail)
+
+            this.userRepository.checkEmail(input.email)
 
             const confirmEmailTokenReturn = {
               validInput: true

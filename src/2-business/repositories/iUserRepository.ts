@@ -10,6 +10,7 @@ export interface IUserRepository {
   delete(user_id: string): Promise<boolean>
   update(userEntity: InputUpdateUserDto): Promise<IUserEntity>
   resetPassword(userDto: InputResetPasswordDto): Promise<boolean>
+  checkEmail(email: string): Promise<boolean>
   getByEmail(email: string): Promise<IUserEntity>
 }
 
