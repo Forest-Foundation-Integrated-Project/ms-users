@@ -10,6 +10,8 @@ import { UserCreationFailed } from '../module/errors/users'
 import { left, right } from '../../4-framework/shared/either'
 import { IUseCase } from './iUseCase'
 import { createToken } from './handler/createToken'
+import { OperationTypes } from '../../1-domain/entities/tokenEntity'
+import { ITokenRepository, ITokenRepositoryToken } from '../repositories/iTokenRepository'
 
 @injectable()
 export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCreateUserDto> {
@@ -18,6 +20,7 @@ export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCre
   public constructor(
     @inject(IUserRepositoryToken) private userRepository: IUserRepository,
     @inject(IIdentityServiceToken) private identityService: IIdentityService,
+    @inject(ITokenRepositoryToken) private tokenRepository: ITokenRepository
   ) { }
 
   async exec(input: InputCreateUserDto): Promise<OutputCreateUserDto> {
@@ -74,6 +77,17 @@ export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCre
       }).promise()
 
       console.log('email::response => ', emailResponse)
+
+      if (emailResponse) {
+        const tokenResult = await this.tokenRepository.create({
+          token: createToken(),
+          operationType: OperationTypes.sendMailResetPassword,
+          email: input.email,
+          expirationDate: Date.now() + 300000
+        })
+
+        console.log('token::result => ', tokenResult)
+      }
 
       return right(userCreation)
     } catch (error) {
