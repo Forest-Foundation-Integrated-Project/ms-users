@@ -1,7 +1,7 @@
 import { injectable, inject } from 'inversify'
 
 import { IUserRepository, IUserRepositoryToken } from '../repositories/iUserRepository'
-import { ImageUploadFailed, UserIdentityCannotBeValidated, UserNotFound, UserUpdateFailed } from '../module/errors/users'
+import { ImageUploadFailed, InvalidBirthDate, UserIdentityCannotBeValidated, UserNotFound, UserUpdateFailed } from '../module/errors/users'
 import { left, right } from '../../4-framework/shared/either'
 import { HandlePassword } from './handler/handlerPassword'
 import { IUseCase } from './iUseCase'
@@ -32,6 +32,22 @@ export class UpdateUserUseCase implements IUseCase<InputUpdateUserDto, OutputUpd
 
         userImage = imageUploadResult.value
         console.log('user::image => ', userImage)
+      }
+
+      // Verificação de Idade
+      if (input.birth_date) {
+        const maxBirthDate = new Date()
+        const minBirthDate = new Date()
+        const birth = input.birth_date
+        maxBirthDate.setFullYear(maxBirthDate.getFullYear() - 18)
+        minBirthDate.setFullYear(minBirthDate.getFullYear() - 130)
+
+        const validDate = () => {
+          if (birth > maxBirthDate) return false
+          if (birth < minBirthDate) return false
+          return true
+        }
+        if (!validDate()) return left(InvalidBirthDate)
       }
 
       const user = await this.userRepository.update({

@@ -6,7 +6,7 @@ import { HandlePassword } from './handler/handlerPassword'
 import { InputCreateUserDto, OutputCreateUserDto } from '../dto/userDto'
 import { IUserRepository, IUserRepositoryToken } from '../repositories/iUserRepository'
 import { IIdentityService, IIdentityServiceToken } from '../services/iIdentityService'
-import { UserCreationFailed } from '../module/errors/users'
+import { InvalidBirthDate, UserCreationFailed } from '../module/errors/users'
 import { left, right } from '../../4-framework/shared/either'
 import { IUseCase } from './iUseCase'
 import { createToken } from './handler/createToken'
@@ -27,6 +27,20 @@ export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCre
     try {
       const handlePassword = new HandlePassword()
       const hashedPassword = handlePassword.hashPassword(input.password)
+
+      // Verificação de Idade
+      const maxBirthDate = new Date()
+      const minBirthDate = new Date()
+      const birth = input.birth_date
+      maxBirthDate.setFullYear(maxBirthDate.getFullYear() - 18)
+      minBirthDate.setFullYear(minBirthDate.getFullYear() - 130)
+
+      const validDate = () => {
+        if (birth > maxBirthDate) return false
+        if (birth < minBirthDate) return false
+        return true
+      }
+      if (!validDate()) return left(InvalidBirthDate)
 
       const userResult = UserEntity.create({
         name: input.name,
