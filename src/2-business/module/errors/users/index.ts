@@ -35,6 +35,12 @@ export const CreationUserIdentityServiceFail = (details: Object) => ({
   details
 })
 
+export const InvalidBirthDate = {
+  code: 'USC-007',
+  message: 'Invalid birth date',
+  shortMessage: 'invalidBirthDate'
+}
+
 export const UserIdentityCannotBeValidated = {
   code: 'UCV-001',
   message: "Suspicious activity, user identity cannot be validated.",
