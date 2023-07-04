@@ -6,7 +6,7 @@ import { InputConfirmTokenDto, OutputConfirmTokenDto } from '../dto/userDto'
 import { OperationTypes } from '../../1-domain/entities/tokenEntity'
 import { ITokenRepository, ITokenRepositoryToken } from '../repositories/iTokenRepository'
 import { createToken } from './handler/createToken'
-import { TokenConfirmationFailed, TokenNotFound, TokenValidationFailed } from '../module/errors/tokens'
+import { TokenConfirmationFailed, TokenValidationFailed } from '../module/errors/tokens'
 import { IUserRepository, IUserRepositoryToken } from '../repositories/iUserRepository'
 
 @injectable()
@@ -24,7 +24,7 @@ export class ConfirmTokenUseCase implements IUseCase<InputConfirmTokenDto, Outpu
         email: input.email
       })
 
-      if (!tokenResult) return left (TokenNotFound)
+      if (!tokenResult) return right ({validInput: false})
       console.log('token::result => ', tokenResult)
 
       const validToken = (new Date(tokenResult.expirationDate!).getTime() >= Date.now())
@@ -39,7 +39,7 @@ export class ConfirmTokenUseCase implements IUseCase<InputConfirmTokenDto, Outpu
               token: resetPasswordToken,
               operationType: OperationTypes.resetPassword,
               email: input.email,
-              expirationDate: Date.now() + 300000
+              expirationDate: Date.now() + 86400000
             })
 
             console.log('new::token::result => ', newTokenResult)

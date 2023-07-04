@@ -83,7 +83,7 @@ export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCre
           token: createToken(),
           operationType: OperationTypes.confirmEmail,
           email: input.email,
-          expirationDate: Date.now() + 300000
+          expirationDate: Date.now() + 86400000
         })
 
         console.log('token::result => ', tokenResult)

@@ -29,7 +29,7 @@ export class SendMailResetPasswordUseCase implements IUseCase<InputSendMailReset
           token: createToken(),
           operationType: OperationTypes.sendMailResetPassword,
           email: input.email,
-          expirationDate: Date.now() + 300000
+          expirationDate: Date.now() + 86400000
         })
 
         console.log('token::result => ', tokenResult)
