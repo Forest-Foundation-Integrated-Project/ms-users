@@ -101,7 +101,8 @@ export class UserRepository implements IUserRepository {
   async resetPassword(userDto: InputResetPasswordDto): Promise<boolean> {
     await this.userModel.update(
       {password: userDto.password},
-      {where: {email: userDto.email}})
+      {where: {email: userDto.email}}
+      ).then(response => {console.log("Response: ", response)})
 
     const resetPasswordResponse = await this.userModel.findOne({where: {email: userDto.email}})
 
@@ -111,7 +112,8 @@ export class UserRepository implements IUserRepository {
   async checkEmail(newEmail: string): Promise<boolean> {
     await this.userModel.update(
       {emailCheck: true},
-      {where: {email: newEmail}})
+      {where: {email: newEmail}}
+      ).then(response => {console.log("Response: ", response)})
 
     const checkEmailResponse = await this.userModel.findOne({where: {email: newEmail}})
 

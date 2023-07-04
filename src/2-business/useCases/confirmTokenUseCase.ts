@@ -53,7 +53,7 @@ export class ConfirmTokenUseCase implements IUseCase<InputConfirmTokenDto, Outpu
           case OperationTypes.confirmEmail:
             console.log('operation::type => ', OperationTypes.confirmEmail)
 
-            this.userRepository.checkEmail(input.email)
+            await this.userRepository.checkEmail(input.email)
 
             const confirmEmailTokenReturn = {
               validInput: true
